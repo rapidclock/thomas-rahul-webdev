@@ -4,14 +4,14 @@ module.exports = function(app)
     app.post("/api/test", createMessage);
     app.delete("/api/test/:id", deleteMessage);
 
-    var connectionString = 'mongodb://rapidclock:asdf1234@ds033106.mlab.com:33106/webdev_rt';
+    var connectionString = 'mongodb://localhost:27017/test';
 
-    if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-        connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-            process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-            process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-            process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-            process.env.OPENSHIFT_APP_NAME;
+    if(process.env.MLAB_DB_USERNAME) {
+        connectionString = process.env.MLAB_DB_URL_INIT +
+            process.env.MLAB_DB_USERNAME + ":" +
+            process.env.MLAB_DB_PASSWORD +
+            process.env.MLAB_DB_URL_END + '/' +
+            process.env.MLAB_DB_NAME;
     }
 
     var mongoose = require("mongoose");
