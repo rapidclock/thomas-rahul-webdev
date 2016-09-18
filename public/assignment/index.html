@@ -1,10 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Assignment Home Page</title>
+  <meta charset="UTF-8">
+  <title>R.T. - Assignment</title>
 </head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-navbar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
 <body>
-    <h1>Assignment Home Page</h1>
+  <!-- Navbar -->
+  <ul class="w3-navbar w3-purple w3-card-2 w3-top w3-left-align w3-large w3-animate-opacity">
+    <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
+      <a class="w3-padding-large w3-hover-white w3-large w3-purple" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    </li>
+    <li><a href="/index.html" class="w3-padding-large w3-hover-white">Home</a></li>
+    <li class="w3-hide-small"><a href="/project/index.html" class="w3-padding-large w3-hover-white">Project</a></li>
+    <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white">Assignment</a></li>
+    <li class="w3-hide-small"><a href="/test/index.html" class="w3-padding-large w3-hover-white">Test MongoDB</a></li>
+  </ul>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
+    <ul class="w3-navbar w3-left-align w3-large w3-black">
+      <li><a class="w3-padding-large" href="/project/index.html">Project</a></li>
+      <li><a class="w3-padding-large" href="#">Assignment</a></li>
+      <li><a class="w3-padding-large" href="/test/index.html">Test MongoDB</a></li>
+      <!-- <li></li> -->
+    </ul>
+  </div>
+
+  <!-- Header -->
+  <div class="w3-container w3-purple w3-center w3-padding-128">
+    <h1 class="w3-margin w3-jumbo">ASSIGNMENT</h1>
+    <p class="w3-xlarge">Rahul Thomas</p>
+    <button class="w3-btn w3-padding-16 w3-large w3-margin-top w3-animate-opacity">
+      <a class="w3-padding-large" href="https://github.com/rapidclock/thomas-rahul-webdev" style="text-decoration: none">My Github Repo</a>
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-64 w3-center w3-opacity">
+    <div class="w3-xlarge w3-padding-32">
+     <a href="#" class="w3-hover-text-indigo"><i class="fa fa-facebook-official"></i></a>
+     <a href="#" class="w3-hover-text-light-blue"><i class="fa fa-twitter"></i></a>
+     <a href="#" class="w3-hover-text-blue"><i class="fa fa-linkedin"></i></a>
+     <a href="#" class="w3-hover-text-dark-grey"><i class="fa fa-github"></i></a>
+   </div>
+  </footer>
+
+  <script>
+  // Used to toggle the menu on small screens when clicking on the menu button
+  function myFunction() {
+      var x = document.getElementById("navDemo");
+      if (x.className.indexOf("w3-show") == -1) {
+          x.className += " w3-show";
+      } else {
+          x.className = x.className.replace(" w3-show", "");
+      }
+  }
+  </script>
+
 </body>
 </html>
