@@ -2,66 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title>Widget Edit Youtube</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-
 <nav id="profile_nav_bar" class="navbar navbar-fixed-top rt-navbar">
     <div class="container-fluid">
         <div class="navbar-header">
+            <p class="navbar-text pull-left">
+                <a href="widget-list.html" class="navbar-link rt-text-color-white rt-col-l-r-20">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </p>
             <a class="rt-text-color-white navbar-brand" href="#">
-                Profile
+                Widget Edit
             </a>
             <p class="navbar-text pull-right">
-                <a href="#" class="navbar-link rt-text-color-white rt-col-l-r-20">
+                <a href="widget-list.html" class="navbar-link rt-text-color-white rt-col-l-r-20">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </p>
         </div>
     </div>
 </nav>
-
-
+<!--Body of the Page-->
 <div class="container rt-form-top-padding">
-    <!--<h1>Profile</h1>-->
-
-    <form id="profile-form">
+    <form>
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" placeholder="Username">
+            <label for="widget-youtube-name">Name</label>
+            <input type="text" class="form-control" id="widget-youtube-name" placeholder="Name">
         </div>
         <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com">
+            <label for="widget-youtube-text">Text</label>
+            <input type="text" class="form-control" id="widget-youtube-text" placeholder="Text">
         </div>
         <div class="form-group">
-            <label for="first-name">First Name</label>
-            <input type="text" class="form-control" id="first-name" placeholder="Alice">
+            <label for="widget-youtube-url">URL</label>
+            <input type="text" class="form-control" id="widget-youtube-url"
+                   placeholder="https://www.youtube.com/watch?v=xxxxxxxxx">
         </div>
         <div class="form-group">
-            <label for="last-name">Last Name</label>
-            <input type="text" class="form-control" id="last-name" placeholder="Wonderland">
+            <label for="widget-youtube-width">Width</label>
+            <input type="text" class="form-control" id="widget-youtube-width" placeholder="100%">
         </div>
+        <a class="btn btn-danger  btn-block" id="widget-youtube-delete-btn" href="widget-list.html">Delete</a>
     </form>
-
-    <a class="btn btn-primary btn-block" href="website-list.html">Websites</a>
-    <a class="btn btn-danger  btn-block" href="login.html">Logout</a>
 </div>
-
+<!--Body of the Page-->
 <nav class="navbar navbar-default navbar-fixed-bottom rt-navbar">
     <div class="container">
         <div class="row navbar-text">
             <div class="rt-col-l-r-20 text-right pull-right">
-                <a href="#">
+                <a href="profile.html">
                     <span class="glyphicon glyphicon-user rt-text-color-white"></span>
                 </a>
             </div>
         </div>
     </div>
 </nav>
-
 </body>
 </html>
