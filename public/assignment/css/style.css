@@ -28,3 +28,47 @@ body {
     padding-right:20px;
     padding-left:20px;
 }
+
+.rt-list-item-dim{
+    text-align: justify;
+    font-size: 1.5em;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+a.rt-hyperlinks {
+    text-decoration: none;
+}
+
+li.borderless {
+    border: 0 none;
+}
+
+.rt-widget-list-margin{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.rt-widget-header {
+     float: left;
+    display: inline-block;
+ }
+
+.rt-widget-images {
+    display: inline-block;
+    width: 75%;
+}
+
+.rt-widget-youtube {
+    /*display: inline-block;*/
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+.testte{
+    float: left;
+}
+
+.rt-widget-list-dev-edit-icons {
+    line-height: 1.1;
+}
