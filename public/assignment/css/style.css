@@ -8,6 +8,7 @@ body {
 
 .rt-form-top-padding {
     padding-top: 5%;
+    padding-bottom: 10%;
     /*color: purple;*/
 }
 
@@ -32,8 +33,8 @@ body {
 .rt-list-item-dim{
     text-align: justify;
     font-size: 1.5em;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 a.rt-hyperlinks {
@@ -56,13 +57,12 @@ li.borderless {
 
 .rt-widget-images {
     display: inline-block;
-    width: 75%;
+    width: 85%;
 }
 
 .rt-widget-youtube {
-    /*display: inline-block;*/
-    white-space:nowrap;
-    overflow:hidden;
+    /*white-space:nowrap;*/
+    /*overflow:hidden;*/
 }
 
 .testte{
@@ -71,4 +71,9 @@ li.borderless {
 
 .rt-widget-list-dev-edit-icons {
     line-height: 1.1;
+}
+
+.navbar-fixed-bottom .navbar-link{
+    margin-right: 5%;
+    margin-top: 18px;
 }
