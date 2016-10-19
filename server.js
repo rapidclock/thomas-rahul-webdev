@@ -9,9 +9,9 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', function(req, res){
-    res.redirect('/assignment/index.html')
-});
+// app.get('/', function(req, res){
+//     res.redirect('/assignment/index.html')
+// });
 
 app.use(express.static(__dirname + '/public'));
 
