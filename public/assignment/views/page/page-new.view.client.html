@@ -1,0 +1,70 @@
+<nav id="top-nav-bar" class="navbar navbar-default navbar-fixed-top rt-navbar">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="container-fluid">
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-text pull-left rt-nav-icon-dim">
+                    <span class="glyphicon glyphicon-chevron-left rt-color-white" aria-hidden="true"></span>
+                </a>
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/new" class="navbar-text rt-nav-icon-dim pull-right">
+                    <span class="glyphicon glyphicon glyphicon-plus rt-color-white" aria-hidden="true"></span>
+                </a>
+                <a class="navbar-brand rt-text-color-white" href="#">
+                    Pages
+                </a>
+            </div>
+        </div>
+
+        <div class="col-xs-8">
+            <div class="container-fluid rt-color-blue">
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-text pull-left rt-nav-icon-dim rt-visible-xs-port">
+                    <span class="glyphicon glyphicon-chevron-left rt-color-white" aria-hidden="true"></span>
+                </a>
+                <a ng-click="model.createPage()" class="navbar-text pull-right rt-nav-icon-dim">
+                    <span class="glyphicon glyphicon glyphicon-ok rt-color-white" aria-hidden="true"></span>
+                </a>
+                <a class="navbar-brand" href="#">
+                    New Page
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="list-group rt-body-content">
+                <ul class="list-group">
+                    <li ng-repeat="page in model.pages" class="list-group-item borderless">
+                        <a class="rt-hyperlinks" href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{page._id}}/widget">{{page.name}}</a>
+                        <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{page._id}}"
+                           class="navbar-link pull-right rt-col-l-r-20">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="rt-vertical-line"></div>
+        <div class="col-xs-8">
+            <div class="container-fluid rt-body-content">
+                <form>
+                    <div class="form-group">
+                        <label for="new-page-name">Name</label>
+                        <input ng-model="model.pageName" type="text" class="form-control" id="new-page-name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-page-title">Title</label>
+                        <input ng-model="model.pageTitle" type="text" class="form-control" id="new-page-title" placeholder="Title">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom rt-navbar">
+    <a href="#/user/{{model.uid}}" class="pull-right navbar-link">
+        <span class="glyphicon glyphicon-user rt-text-color-white"></span>
+    </a>
+</nav>

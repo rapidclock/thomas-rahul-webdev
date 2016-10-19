@@ -27,9 +27,9 @@ body {
 
 .rt-list-item-dim{
     text-align: justify;
-    font-size: 1.5em;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    /*font-size: 1.5em;*/
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 a.rt-hyperlinks {
@@ -51,13 +51,14 @@ li.borderless {
  }
 
 .rt-widget-images {
-    display: inline;
-    width: 85%;
-    z-index: 100;
-    position: relative;
+    /*display: inline;*/
+    width: 100%;
+    /*z-index: 100;*/
+    /*position: relative;*/
 }
 
 .rt-widget-youtube {
+    width: 100%;
 }
 
 .testte{
@@ -72,7 +73,32 @@ li.borderless {
     margin-right: 5%;
     margin-top: 18px;
 }
+/* Widget Adjustments */
 
+.rt-widget-list-dim-adj{
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.rt-widget-dev-options{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 20;
+    background-color: white;
+    padding-right: 0px;
+}
+
+.rt-rel-pos{
+    position: relative;
+}
+
+
+/* Alert Box Padding */
+.rt-alert-padding.alert-success{
+    margin-top:10px;
+    margin-bottom:10px;
+}
 
 
 /*Navbar coloring*/

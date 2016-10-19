@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Widget Chooser</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="css/style.css" rel="stylesheet"/>
-</head>
-<body>
 <nav id="profile_nav_bar" class="navbar navbar-fixed-top rt-navbar">
     <div class="container-fluid">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="widget-list.html" class="navbar-link rt-text-color-white rt-col-l-r-20">
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="navbar-link rt-text-color-white rt-col-l-r-20">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </p>
@@ -28,7 +18,7 @@
     <div class="list-group">
         <ul class="list-group">
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="widget-heading.html">Header</a>
+                <a class="rt-hyperlinks" href="widget-heading.view.client.html">Header</a>
             </li>
             <li class="list-group-item borderless">
                 <a class="rt-hyperlinks" href="#">Label</a>
@@ -46,10 +36,10 @@
                 <a class="rt-hyperlinks" href="#">Button</a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="widget-image.html">Image</a>
+                <a class="rt-hyperlinks" href="widget-image.view.client.html">Image</a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="widget-youtube.html">YouTube</a>
+                <a class="rt-hyperlinks" href="widget-youtube.view.client.html">YouTube</a>
             </li>
             <li class="list-group-item borderless">
                 <a class="rt-hyperlinks" href="#">Data Table</a>
@@ -63,9 +53,7 @@
 
 <!--Body of the Page-->
 <nav class="navbar navbar-default navbar-fixed-bottom rt-navbar">
-    <a href="profile.html" class="pull-right navbar-link">
+    <a href="#/user/{{model.uid}}" class="pull-right navbar-link">
         <span class="glyphicon glyphicon-user rt-text-color-white"></span>
     </a>
 </nav>
-</body>
-</html>
