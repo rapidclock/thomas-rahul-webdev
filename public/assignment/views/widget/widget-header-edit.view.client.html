@@ -1,17 +1,17 @@
 <nav id="profile_nav_bar" class="navbar navbar-fixed-top rt-navbar">
     <div class="container-fluid">
         <p class="navbar-text pull-right">
-            <a href="widget-list.view.client.html" class="navbar-link rt-text-color-white rt-col-l-r-20">
+            <a ng-click="model.editWidget()" class="navbar-link rt-text-color-white rt-col-l-r-20">
                 <span class="glyphicon glyphicon-ok"></span>
             </a>
         </p>
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="widget-list.view.client.html" class="navbar-link rt-text-color-white rt-col-l-r-20">
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="navbar-link rt-text-color-white rt-col-l-r-20">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </p>
-            <a class="rt-text-color-white navbar-brand" href="#">
+            <a class="rt-text-color-white navbar-brand">
                 Widget Edit
             </a>
         </div>
@@ -23,23 +23,23 @@
     <form>
         <div class="form-group">
             <label for="widget-heading-name">Name</label>
-            <input type="text" class="form-control" id="widget-heading-name" placeholder="Name">
+            <input ng-model="model.widgetName" type="text" class="form-control" id="widget-heading-name" placeholder="Name">
         </div>
         <div class="form-group">
             <label for="widget-heading-text">Text</label>
-            <input type="text" class="form-control" id="widget-heading-text" placeholder="Text">
+            <input ng-model="model.widgetText" type="text" class="form-control" id="widget-heading-text" placeholder="Text">
         </div>
         <div class="form-group">
             <label for="widget-heading-size">Size</label>
-            <input type="text" class="form-control" id="widget-heading-size" placeholder="Size">
+            <input ng-model="model.widgetSize" type="text" class="form-control" id="widget-heading-size" placeholder="Size">
         </div>
-        <a class="btn btn-danger  btn-block" id="widget-heading-delete-btn" href="widget-list.view.client.html">Delete</a>
+        <a ng-click="model.deleteWidget()" class="btn btn-danger  btn-block" id="widget-heading-delete-btn">Delete</a>
     </form>
 </div>
 
 <!--Body of the Page-->
 <nav class="navbar navbar-default navbar-fixed-bottom rt-navbar">
-    <a href="../user/profile.view.client.html" class="pull-right navbar-link">
+    <a href="#/user/{{model.uid}}" class="pull-right navbar-link">
         <span class="glyphicon glyphicon-user rt-text-color-white"></span>
     </a>
 </nav>

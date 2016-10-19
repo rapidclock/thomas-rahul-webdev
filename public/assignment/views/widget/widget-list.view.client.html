@@ -11,7 +11,7 @@
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </p>
-            <a class="rt-text-color-white navbar-brand" href="#">
+            <a class="rt-text-color-white navbar-brand">
                 Widgets
             </a>
 
@@ -22,7 +22,7 @@
 
 <div ng-repeat="widget in model.widgets" ng-switch="widget.widgetType" class="container-fluid rt-widget-list-dim-adj">
     <div ng-switch-when="HEADER">
-        <ng-include src="'views/widget/widget-heading.view.client.html'">
+        <ng-include src="'views/widget/widget-header.view.client.html'">
     </div>
     <div ng-switch-when="IMAGE">
         <ng-include src="'views/widget/widget-image.view.client.html'">
@@ -33,7 +33,7 @@
 </div>
 
 <!--Body of the Page-->
-
+<div class="rt-widget-list-nav-bod-dim"></div>
 <nav class="navbar navbar-default navbar-fixed-bottom rt-navbar">
     <a href="#/user/{{model.uid}}" class="pull-right navbar-link">
         <span class="glyphicon glyphicon-user rt-text-color-white"></span>

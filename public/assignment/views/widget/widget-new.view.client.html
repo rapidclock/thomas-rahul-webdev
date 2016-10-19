@@ -1,0 +1,11 @@
+<div ng-switch="model.widgetType">
+    <div ng-switch-when="HEADER">
+        <ng-include src="'views/widget/header/widget-header-new.view.client.html'">
+    </div>
+    <div ng-switch-when="IMAGE">
+        <ng-include src="'views/widget/image/widget-image-new.view.client.html'">
+    </div>
+    <div ng-switch-when="YOUTUBE">
+        <ng-include src="'views/widget/youtube/widget-youtube-new.view.client.html'">
+    </div>
+</div>

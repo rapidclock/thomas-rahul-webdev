@@ -7,13 +7,13 @@
         .factory("WidgetService", WidgetService);
     function WidgetService() {
         var widgets = [
-            {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, text: "GIZMODO"},
-            {_id: "234", widgetType: "HEADER", pageId: "100", size: 4, text: "Lorem ipsum"},
-            {_id: "345", widgetType: "IMAGE", pageId: "321", width: "100%", url: "http://lorempixel.com/400/200/"},
-            {_id: "456", widgetType: "HTML", pageId: "321", text: "<p>Lorem ipsum</p>"},
-            {_id: "567", widgetType: "HEADER", pageId: "321", size: 4, text: "Lorem ipsum"},
-            {_id: "678", widgetType: "YOUTUBE", pageId: "321", width: "100%", url: "https://www.youtube.com/embed/8Pa9x9fZBtY"},
-            {_id: "789", widgetType: "HTML", pageId: "100", text: "<p>Lorem ipsum</p>"}
+            {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, name: "GIZZY", text: "GIZMODO"},
+            {_id: "234", widgetType: "HEADER", pageId: "100", size: 4, name: "Ippsy", text: "Lorem ipsum"},
+            {_id: "345", widgetType: "IMAGE", pageId: "321", name: "Lorem Pixel", text: "Pixel", width: "100%", url: "http://lorempixel.com/400/200/"},
+            {_id: "456", widgetType: "HTML", pageId: "321", name: "Ipsy", text: "<p>Lorem ipsum</p>"},
+            {_id: "567", widgetType: "HEADER", pageId: "321", size: 4, name: "Lorrro", text: "Lorem ipsum"},
+            {_id: "678", widgetType: "YOUTUBE", pageId: "321", name: "Dire Straits", text: "Sultans of Swing", width: "100%", url: "https://www.youtube.com/embed/8Pa9x9fZBtY"},
+            {_id: "789", widgetType: "HTML", pageId: "100", name: "Lorem", text: "<p>Lorem ipsum</p>"}
         ];
 
         var createWidgetMap = {
@@ -48,7 +48,7 @@
                     return current + 1;
                 }
             }
-            return pages.reduce(getMaxId, 0).toString();
+            return widgets.reduce(getMaxId, 0).toString();
         }
 
         function createHeaderWidget(widgetId, pageId, widget) {
@@ -57,6 +57,7 @@
                 widgetType: 'HEADER',
                 pageId: pageId,
                 size: widget.size,
+                name: widget.name,
                 text: widget.text
             };
         }
@@ -69,6 +70,7 @@
                 _id: widgetId,
                 widgetType: 'HTML',
                 pageId: pageId,
+                name: widget.name,
                 text: widget.text
             };
         }
@@ -91,7 +93,9 @@
                 widgetType: 'IMAGE',
                 pageId: pageId,
                 width: widget.width,
-                url: widget.url
+                url: widget.url,
+                name: widget.name,
+                text: widget.text
             };
 
         }
@@ -101,6 +105,8 @@
                 _id: widgetId,
                 widgetType: 'YOUTUBE',
                 pageId: pageId,
+                name: widget.name,
+                text: widget.text,
                 width: widget.width,
                 url: widget.url
             };
@@ -121,7 +127,8 @@
          */
         function createWidget(pageId, widget) {
             var newWidgetId = getNextId();
-            return createWidgetMap[widget.widgetType](newWidgetId, pageId, widget);
+            var newWidget = createWidgetMap[widget.widgetType](newWidgetId, pageId, widget);
+            widgets.push(newWidget);
         }
 
         function findWidgetsByPageId(pageId) {

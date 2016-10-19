@@ -93,9 +93,12 @@ li.borderless {
     position: relative;
 }
 
+.rt-widget-list-nav-bod-dim{
+    padding-top: 50px;
+}
 
 /* Alert Box Padding */
-.rt-alert-padding.alert-success{
+.rt-alert-padding.alert-success, .rt-alert-padding.alert-danger{
     margin-top:10px;
     margin-bottom:10px;
 }

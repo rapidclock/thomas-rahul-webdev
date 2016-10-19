@@ -2,11 +2,12 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="navbar-link rt-text-color-white rt-col-l-r-20">
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget"
+                   class="navbar-link rt-text-color-white rt-col-l-r-20">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </p>
-            <a class="rt-text-color-white navbar-brand" href="#">
+            <a class="rt-text-color-white navbar-brand">
                 Choose Widget
             </a>
         </div>
@@ -18,36 +19,47 @@
     <div class="list-group">
         <ul class="list-group">
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="widget-heading.view.client.html">Header</a>
+                <a class="rt-hyperlinks"
+                   href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/create/HEADER">
+                    Header
+                </a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="#">Label</a>
+                <a ng-click="model.futureFeature()" class="rt-hyperlinks">Label</a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="#">HTML</a>
+                <a ng-click="model.futureFeature()" class="rt-hyperlinks">HTML</a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="#">Text Input</a>
+                <a ng-click="model.futureFeature()" class="rt-hyperlinks">Text Input</a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="#">Link</a>
+                <a ng-click="model.futureFeature()" class="rt-hyperlinks">Link</a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="#">Button</a>
+                <a ng-click="model.futureFeature()" class="rt-hyperlinks">Button</a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="widget-image.view.client.html">Image</a>
+                <a class="rt-hyperlinks"
+                   href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/create/IMAGE">
+                    Image
+                </a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="widget-youtube.view.client.html">YouTube</a>
+                <a class="rt-hyperlinks"
+                   href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/create/YOUTUBE">
+                    YouTube
+                </a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="#">Data Table</a>
+                <a ng-click="model.futureFeature()" class="rt-hyperlinks">Data Table</a>
             </li>
             <li class="list-group-item borderless">
-                <a class="rt-hyperlinks" href="#">Repeater</a>
+                <a ng-click="model.futureFeature()" class="rt-hyperlinks">Repeater</a>
             </li>
         </ul>
+        <div ng-show="model.featureMissingAlert" class="alert alert-info" role="alert">{{model.featureMissingAlert}}
+        </div>
     </div>
 </div>
 
