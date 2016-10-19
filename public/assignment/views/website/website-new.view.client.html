@@ -57,6 +57,7 @@
                         <textarea ng-model="model.websiteDesc" id="website-description" class="form-control" rows="5" placeholder="Description"></textarea>
                     </div>
                 </form>
+                <div ng-show="model.errorText" class="alert alert-danger rt-alert-padding" role="alert">{{model.errorText}}</div>
             </div>
         </div>
     </div>

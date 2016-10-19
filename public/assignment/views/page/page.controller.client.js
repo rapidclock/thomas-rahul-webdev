@@ -19,7 +19,11 @@
         vm.createPage = createPage;
         
         function createPage() {
-            if(vm.pageName === null || vm.pageName === undefined){
+            if(vm.pageName === null || vm.pageName === undefined || vm.pageName === ""){
+                vm.errorText = "Page Name Cannot be Blank";
+                $timeout(function(){
+                    vm.errorText = null;
+                }, 3500);
                 return;
             }
             var newPage = {
@@ -32,7 +36,7 @@
             vm.pageTitle = null;
         }
     }
-    function EditPageController($routeParams, $location, PageService, WidgetService){
+    function EditPageController($routeParams, $location, $timeout, PageService, WidgetService){
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
@@ -47,6 +51,13 @@
         vm.deletePage = deletePage;
         
         function editPage() {
+            if(vm.pageName === null || vm.pageName === undefined || vm.pageName === ""){
+                vm.errorText = "Page Name Cannot be Blank";
+                $timeout(function(){
+                    vm.errorText = null;
+                }, 3500);
+                return;
+            }
             var latestData = {
                 name: vm.pageName,
                 title: vm.pageTitle

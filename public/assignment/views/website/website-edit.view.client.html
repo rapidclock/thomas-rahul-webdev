@@ -58,6 +58,7 @@
                     </div>
                     <a ng-click="model.deleteWebsite()" class="btn btn-danger btn-block" id="edit-website-delete-btn">Delete</a>
                 </form>
+                <div ng-show="model.errorText" class="alert alert-danger rt-alert-padding" role="alert">{{model.errorText}}</div>
             </div>
         </div>
     </div>

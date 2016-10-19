@@ -10,14 +10,18 @@
         vm.uid = $routeParams.uid;
         vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
     }
-    function NewWebsiteController($routeParams, WebsiteService){
+    function NewWebsiteController($routeParams, $timeout, WebsiteService){
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
         vm.createNew = createNew;
 
         function createNew(){
-            if(vm.websiteName === null || vm.websiteName === undefined){
+            if(vm.websiteName === null || vm.websiteName === undefined || vm.websiteName === ""){
+                vm.errorText = "Website Name Cannot be Blank";
+                $timeout(function(){
+                    vm.errorText = null;
+                }, 3500);
                 return;
             }
             newWebsite = {
@@ -42,6 +46,13 @@
         vm.deleteWebsite = deleteWebsite;
 
         function editWebsite(){
+            if(vm.websiteName === null || vm.websiteName === undefined || vm.websiteName === ""){
+                vm.errorText = "Website Name Cannot be Blank";
+                $timeout(function(){
+                    vm.errorText = null;
+                }, 3500);
+                return;
+            }
             var latestData = {
                 name: vm.currentWebsiteName,
                 desc: vm.currentWebsiteDesc
