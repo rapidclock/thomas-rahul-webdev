@@ -19,6 +19,7 @@
 </nav>
 <!--Body of the Page-->
 <div class="container rt-form-top-padding">
+    <div ng-show="model.errorMessage" class="alert alert-danger rt-alert-padding" role="alert">{{model.errorMessage}}</div>
     <form>
         <div class="form-group">
             <label for="widget-image-name">Name</label>
@@ -34,7 +35,7 @@
         </div>
         <div class="form-group">
             <label for="widget-image-width">Width</label>
-            <input ng-model="model.widgetWidth" type="text" class="form-control" id="widget-image-width" placeholder="100%">
+            <input ng-model="model.widgetWidth" type="number" class="form-control" id="widget-image-width" placeholder="100%">
         </div>
         <div class="form-group">
             <label for="widget-image-file-chooser">Upload</label>

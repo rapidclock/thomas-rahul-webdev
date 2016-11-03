@@ -27,6 +27,11 @@
                 controller: "LoginController",
                 controllerAs: "model"
             })
+            .when('/test', {
+                templateUrl : "views/test.html",
+                controller: "NewWidgetController",
+                controllerAs: "model"
+            })
             .when('/user/:uid', {
                 templateUrl : "views/user/profile.view.client.html",
                 controller: "ProfileController",

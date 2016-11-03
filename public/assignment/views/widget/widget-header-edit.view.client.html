@@ -20,6 +20,7 @@
 <!--Body of the Page-->
 
 <div class="container rt-form-top-padding">
+    <div ng-show="model.errorMessage" class="alert alert-danger rt-alert-padding" role="alert">{{model.errorMessage}}</div>
     <form>
         <div class="form-group">
             <label for="widget-heading-name">Name</label>

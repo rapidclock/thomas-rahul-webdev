@@ -38,21 +38,43 @@
         vm.pid = $routeParams.pid;
         vm.widgetType = $routeParams.wtype;
         vm.createWidget = createWidget;
-        vm.createError = null;
+        vm.createError = "";
 
         function createWidget() {
-            if (vm.widgetType === 'IMAGE' || vm.widgetType === 'YOUTUBE') {
-                if (vm.widgetUrl === null || vm.widgetUrl === undefined) {
-                    vm.createError = "Url is required for Image/Youtube";
-                    return;
-                }
-            }
             if (vm.widgetType === 'HEADER') {
                 if (vm.widgetText === null || vm.widgetText === undefined) {
-                    vm.createError = "Text is required for Header";
+                    vm.createError = "Text is required for Header.";
                     return;
                 }
             }
+
+            if (vm.widgetType === 'IMAGE') {
+                if (vm.widgetUrl === null || vm.widgetUrl === undefined) {
+                    vm.createError = "Url is required for Image.";
+                    return;
+                }
+            }
+
+            if (vm.widgetType === 'YOUTUBE') {
+                if (vm.widgetUrl === null || vm.widgetUrl === undefined) {
+                    vm.createError = "Url is required for Youtube.";
+                    return;
+                }
+                if(!validateUrl(vm.widgetUrl)){
+                    vm.createError = "Url is Invalid.";
+                    return;
+                }
+            }
+
+            if(vm.widgetWidth !== null || vm.widgetWidth !== undefined || vm.widgetWidth !== ""){
+                if (parseInt(vm.widgetWidth) > 100 || parseInt(vm.widgetWidth) < 0){
+                    vm.createError = "Width should be between 0 and 100.";
+                    return;
+                } else {
+                    vm.widgetWidth = 100;
+                }
+            }
+
             var newWidget = {
                 name: vm.widgetName,
                 text: vm.widgetText,
@@ -63,6 +85,14 @@
             };
             WidgetService.createWidget(vm.pid, newWidget);
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+        }
+
+        function validateUrl(url){
+            var p = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+            if(url.match(p)){
+                return url.match(p)[1];
+            }
+            return false;
         }
     }
 
@@ -75,6 +105,7 @@
         vm.widget = WidgetService.findWidgetById(vm.wgid);
         vm.editWidget = editWidget;
         vm.deleteWidget = deleteWidget;
+        vm.errorMessage = "";
 
         if (vm.widget.widgetType === "HEADER") {
             vm.widgetName = vm.widget.name;
@@ -93,6 +124,18 @@
         }
 
         function editWidget() {
+            // refreshFields();
+            vm.errorMessage = "";
+            if(!validateWidth()){
+                vm.errorMessage = "Width should be between 0 and 100.";
+                return;
+            }
+            if(vm.widget.widgetType === "YOUTUBE"){
+                if(!validateUrl(vm.widgetUrl)){
+                    vm.errorMessage += " URL not an embed link!";
+                    return;
+                }
+            }
             var latestData = {
                 name: vm.widgetName,
                 text: vm.widgetText,
@@ -103,6 +146,25 @@
             };
             WidgetService.updateWidget(vm.wgid, latestData);
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+        }
+
+        function validateUrl(url){
+            var p = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+            if(url.match(p)){
+                return url.match(p)[1];
+            }
+            return false;
+        }
+
+
+        function validateWidth(){
+            if(vm.widgetWidth !== null || vm.widgetWidth !== undefined || vm.widgetWidth !== ""){
+                if (parseInt(vm.widgetWidth) > 100 || parseInt(vm.widgetWidth) < 0){
+                    return false;
+                }
+            }
+            vm.widgetWidth = 100;
+            return true;
         }
 
         function deleteWidget() {

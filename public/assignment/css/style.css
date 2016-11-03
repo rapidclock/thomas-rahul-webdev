@@ -73,6 +73,14 @@ li.borderless {
     margin-right: 5%;
     margin-top: 18px;
 }
+
+/* De-register Button Padding */
+.btn.btn-danger.btn-block.rt-alert-margin-xxxl{
+    margin-top: 40px;
+}
+
+
+
 /* Widget Adjustments */
 
 .rt-widget-list-dim-adj{

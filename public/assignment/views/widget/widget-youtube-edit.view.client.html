@@ -19,6 +19,7 @@
 </nav>
 <!--Body of the Page-->
 <div class="container rt-form-top-padding">
+    <div ng-show="model.errorMessage" class="alert alert-danger rt-alert-padding" role="alert">{{model.errorMessage}}</div>
     <form>
         <div class="form-group">
             <label for="widget-youtube-name">Name</label>
@@ -35,7 +36,7 @@
         </div>
         <div class="form-group">
             <label for="widget-youtube-width">Width</label>
-            <input  ng-model="model.widgetWidth" type="text" class="form-control" id="widget-youtube-width" placeholder="100%">
+            <input  ng-model="model.widgetWidth" type="number" min="1" max="100" class="form-control" id="widget-youtube-width" placeholder="100%">
         </div>
         <a ng-click="model.deleteWidget()" class="btn btn-danger  btn-block" id="widget-youtube-delete-btn">Delete</a>
     </form>

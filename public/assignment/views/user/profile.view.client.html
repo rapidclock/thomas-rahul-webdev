@@ -36,7 +36,9 @@
 
     <a class="btn btn-primary btn-block" href="#/user/{{model.user._id}}/website">Websites</a>
     <a class="btn btn-danger  btn-block" href="#/login">Logout</a>
+    <a ng-click="model.deleteUser()" class="btn btn-danger  btn-block rt-alert-margin-xxxl">De-Register</a>
     <div ng-show="model.changeSuccess" class="alert rt-alert-padding alert-success" role="alert">{{model.changeSuccess}}</div>
+    <div ng-show="model.changeFailure" class="alert rt-alert-padding alert-danger" role="alert">{{model.changeFailure}}</div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom rt-navbar">
