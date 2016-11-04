@@ -1,25 +1,59 @@
-(function(){
+(function () {
     angular
         .module("WebAppMaker")
         .controller("WebsiteListController", WebsiteListController)
         .controller("NewWebsiteController", NewWebsiteController)
         .controller("EditWebsiteController", EditWebsiteController);
 
-    function WebsiteListController($routeParams, WebsiteService){
+    function WebsiteListController($routeParams, WebsiteService) {
         var vm = this;
         vm.uid = $routeParams.uid;
-        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
+        vm.websites = [];
+
+        init();
+
+        function init() {
+            var promise = WebsiteService.findWebsitesByUser(vm.uid);
+            promise
+                .success(function (websites) {
+                    if (websites.length > 0) {
+                        vm.websites = websites;
+                    } else {
+                        vm.websites = [];
+                    }
+                })
+                .error(function () {
+                    console.log("Error retrieving websites.");
+                });
+        }
     }
-    function NewWebsiteController($routeParams, $timeout, WebsiteService){
+
+    function NewWebsiteController($routeParams, $timeout, WebsiteService) {
         var vm = this;
         vm.uid = $routeParams.uid;
-        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
+        init();
+
         vm.createNew = createNew;
 
-        function createNew(){
-            if(vm.websiteName === null || vm.websiteName === undefined || vm.websiteName === ""){
+        function init() {
+            var promise = WebsiteService.findWebsitesByUser(vm.uid);
+            promise
+                .success(function (websites) {
+                    if (websites.length > 0) {
+                        vm.websites = websites;
+                    } else {
+                        vm.websites = [];
+                    }
+                })
+                .error(function () {
+                    console.log("Error retrieving websites.")
+                });
+        }
+
+        function createNew() {
+            if (vm.websiteName === null || vm.websiteName === undefined || vm.websiteName === "") {
                 vm.errorText = "Website Name Cannot be Blank";
-                $timeout(function(){
+                $timeout(function () {
                     vm.errorText = null;
                 }, 3500);
                 return;
@@ -28,27 +62,60 @@
                 name: vm.websiteName,
                 desc: vm.websiteDesc
             };
-            WebsiteService.createWebsite(vm.uid, newWebsite);
-            vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
-            vm.websiteName = null;
-            vm.websiteDesc = null;
+            var promise = WebsiteService.createWebsite(vm.uid, newWebsite);
+            promise
+                .success(function () {
+                    init();
+                    vm.websiteName = null;
+                    vm.websiteDesc = null;
+                })
+                .error(function () {
+                    vm.errorText = "Server Error. Try after a while.";
+                    $timeout(function () {
+                        vm.errorText = null;
+                    }, 3500);
+                });
         }
     }
-    function EditWebsiteController($routeParams, $location, $window, WebsiteService, PageService){
+
+    function EditWebsiteController($routeParams, $location, $window, WebsiteService, PageService) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
-        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
-        vm.currentWebsite = WebsiteService.findWebsiteById(vm.wid);
-        vm.currentWebsiteName = vm.currentWebsite.name;
-        vm.currentWebsiteDesc = vm.currentWebsite.desc;
+        init();
         vm.editWebsite = editWebsite;
         vm.deleteWebsite = deleteWebsite;
 
-        function editWebsite(){
-            if(vm.websiteName === null || vm.websiteName === undefined || vm.websiteName === ""){
+        function init() {
+            var sitePromise = WebsiteService.findWebsiteById(vm.wid);
+            sitePromise
+                .success(function (website) {
+                    vm.currentWebsite = website;
+                    vm.currentWebsiteName = vm.currentWebsite.name;
+                    vm.currentWebsiteDesc = vm.currentWebsite.desc;
+                })
+                .error(function () {
+                    console.log("Error retrieving data");
+                });
+
+            var allSitePromise = WebsiteService.findWebsitesByUser(vm.uid);
+            allSitePromise
+                .success(function (websites) {
+                    if (websites.length > 0) {
+                        vm.websites = websites;
+                    } else {
+                        vm.websites = [];
+                    }
+                })
+                .error(function () {
+                    console.log("Error retrieving websites.")
+                });
+        }
+
+        function editWebsite() {
+            if (vm.currentWebsiteName === null || vm.currentWebsiteName === undefined || vm.currentWebsiteName === "") {
                 vm.errorText = "Website Name Cannot be Blank";
-                $timeout(function(){
+                $timeout(function () {
                     vm.errorText = null;
                 }, 3500);
                 return;
@@ -57,15 +124,32 @@
                 name: vm.currentWebsiteName,
                 desc: vm.currentWebsiteDesc
             };
-            WebsiteService.updateWebsite(vm.wid, latestData);
-            vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
-            $location.url("/user/"+vm.uid+"/website");
+            var promise = WebsiteService.updateWebsite(vm.wid, latestData);
+            promise
+                .success(function () {
+                    $location.url("/user/" + vm.uid + "/website");
+                })
+                .error(function () {
+
+                });
         }
 
-        function deleteWebsite(){
-            WebsiteService.deleteWebsite(vm.wid);
-            PageService.deletePagesByWebsite(vm.wid);
-            $location.url("/user/"+vm.uid+"/website");
+        function deleteWebsite() {
+            var promise = WebsiteService.deleteWebsite(vm.wid);
+            promise
+                .success(function(){
+                    var allDeletePromise = PageService.deletePagesByWebsite(vm.wid);
+                    allDeletePromise
+                        .success(function () {
+                            $location.url("/user/" + vm.uid + "/website");
+                        })
+                        .error(function () {
+                            console.log("Server Error Deleting all Pages");
+                        });
+                })
+                .error(function(){
+                    console.log("Server Error Deleting Website");
+                });
         }
     }
 })();

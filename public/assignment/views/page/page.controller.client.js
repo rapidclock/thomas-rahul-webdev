@@ -9,15 +9,34 @@
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
-        vm.pages = PageService.findPageByWebsiteId(vm.wid);
+
+        var promise = PageService.findPageByWebsiteId(vm.wid);
+        promise
+            .success(function (pages) {
+                vm.pages = pages;
+            })
+            .error(function () {
+                console.log("Error retrieving pages.");
+            });
     }
-    function NewPageController($routeParams, PageService){
+    function NewPageController($routeParams, $timeout, PageService){
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
-        vm.pages = PageService.findPageByWebsiteId(vm.wid);
+        init();
         vm.createPage = createPage;
-        
+
+        function init(){
+            var promise = PageService.findPageByWebsiteId(vm.wid);
+            promise
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function () {
+                    console.log("Error retrieving pages.");
+                });
+        }
+
         function createPage() {
             if(vm.pageName === null || vm.pageName === undefined || vm.pageName === ""){
                 vm.errorText = "Page Name Cannot be Blank";
@@ -30,8 +49,9 @@
                 name: vm.pageName,
                 title: vm.pageTitle
             };
+
             PageService.createPage(vm.wid, newPage);
-            vm.pages = PageService.findPageByWebsiteId(vm.wid);
+            init();
             vm.pageName = null;
             vm.pageTitle = null;
         }
@@ -42,14 +62,35 @@
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
 
-        vm.pages = PageService.findPageByWebsiteId(vm.wid);
-        vm.currentPage = PageService.findPageById(vm.pid);
-        vm.pageName = vm.currentPage.name;
-        vm.pageTitle = vm.currentPage.title;
-
+        // vm.pages = PageService.findPageByWebsiteId(vm.wid);
+        // vm.currentPage = PageService.findPageById(vm.pid);
+        // vm.pageName = vm.currentPage.name;
+        // vm.pageTitle = vm.currentPage.title;
+        init();
         vm.editPage = editPage;
         vm.deletePage = deletePage;
-        
+
+        function init(){
+            var pagesPromise = PageService.findPageByWebsiteId(vm.wid);
+            pagesPromise
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function () {
+                    console.log("Error retrieving pages.");
+                });
+            var pagePromise = PageService.findPageById(vm.pid);
+            pagePromise
+                .success(function(page){
+                    vm.currentPage = page;
+                    vm.pageName = vm.currentPage.name;
+                    vm.pageTitle = vm.currentPage.title;
+                })
+                .error(function(){
+                    console.log("Error retrieving page.");
+                })
+        }
+
         function editPage() {
             if(vm.pageName === null || vm.pageName === undefined || vm.pageName === ""){
                 vm.errorText = "Page Name Cannot be Blank";
@@ -62,8 +103,14 @@
                 name: vm.pageName,
                 title: vm.pageTitle
             };
-            PageService.updatePage(vm.pid, latestData);
-            $location.url("/user/"+vm.uid+"/website/"+vm.wid+"/page");
+            var promise = PageService.updatePage(vm.pid, latestData);
+            promise
+                .success(function () {
+                    $location.url("/user/"+vm.uid+"/website/"+vm.wid+"/page");
+                })
+                .error(function () {
+                    console.log("Error updating Data");
+                });
         }
         
         function deletePage() {

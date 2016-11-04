@@ -69,7 +69,7 @@
     function ProfileController($routeParams, $location, $timeout, UserService) {
         var vm = this;
 
-        // vm.user = UserService.findUserById($routeParams.uid);
+        //vm.user = UserService.findUserById($routeParams.uid);
         // vm.username = vm.user.username;
         // vm.firstName = vm.user.firstName;
         // vm.lastName = vm.user.lastName;
@@ -82,6 +82,7 @@
             var promise = UserService.findUserById($routeParams.uid);
             promise
                 .success(function (user) {
+                    vm.user = user;
                     vm.username = user.username;
                     vm.firstName = user.firstName;
                     vm.lastName = user.lastName;

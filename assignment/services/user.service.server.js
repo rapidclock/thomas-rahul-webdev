@@ -12,7 +12,7 @@ module.exports = function(app){
 
     // GET Calls.
     app.get('/api/user', getUser);
-    app.get('/api/user/:uid', getUserId);
+    app.get('/api/user/:uid', getUserById);
 
     // PUT Calls.
     app.put('/api/user/:uid', updateDetails);
@@ -20,6 +20,7 @@ module.exports = function(app){
     // DELETE Calls.
     app.delete('/api/user/:uid', deleteFromSystem);
 
+    /* REST Functions */
 
     function getUser(req, res) {
         var query = req.query;
@@ -32,7 +33,7 @@ module.exports = function(app){
         res.send(user);
     }
 
-    function getUserId(req, res){
+    function getUserById(req, res){
         var params = req.params;
         var user = null;
         if(params.uid){
