@@ -11,7 +11,18 @@
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-        vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+        init();
+
+        function init() {
+            var promise = WidgetService.findWidgetsByPageId(vm.pid);
+            promise
+                .success(function (widgets) {
+                    vm.widgets = widgets;
+                })
+                .error(function () {
+                    console.log("Error Retrieving Widgets Data");
+                });
+        }
     }
 
     function NewWidgetController($routeParams, $timeout, WidgetService) {
@@ -19,9 +30,20 @@
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-        vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+        init();
         vm.futureFeature = futureFeature;
         vm.featureMissingAlert = null;
+
+        function init() {
+            var promise = WidgetService.findWidgetsByPageId(vm.pid);
+            promise
+                .success(function (widgets) {
+                    vm.widgets = widgets;
+                })
+                .error(function () {
+                    console.log("Error Retrieving Widgets Data");
+                });
+        }
 
         function futureFeature() {
             vm.featureMissingAlert = "Coming Soon. Feature Not Implemented Yet. Stay Tuned...";
@@ -83,7 +105,14 @@
                 width: vm.widgetWidth,
                 url: vm.widgetUrl
             };
-            WidgetService.createWidget(vm.pid, newWidget);
+            var promise = WidgetService.createWidget(vm.pid, newWidget);
+            promise
+                .success(function(){
+
+                })
+                .error(function(){
+                    console.log("Error Creating the " + vm.widgetType + " widget.")
+                });
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
         }
 
@@ -102,26 +131,38 @@
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
-        vm.widget = WidgetService.findWidgetById(vm.wgid);
+        init();
         vm.editWidget = editWidget;
         vm.deleteWidget = deleteWidget;
         vm.errorMessage = "";
 
-        if (vm.widget.widgetType === "HEADER") {
-            vm.widgetName = vm.widget.name;
-            vm.widgetText = vm.widget.text;
-            vm.widgetSize = vm.widget.size;
-        } else if (vm.widget.widgetType === "IMAGE") {
-            vm.widgetName = vm.widget.name;
-            vm.widgetText = vm.widget.text;
-            vm.widgetUrl = vm.widget.url;
-            vm.widgetWidth = vm.widget.width;
-        } else if (vm.widget.widgetType === "YOUTUBE") {
-            vm.widgetName = vm.widget.name;
-            vm.widgetText = vm.widget.text;
-            vm.widgetUrl = vm.widget.url;
-            vm.widgetWidth = vm.widget.width;
+        function init(){
+            var promise = WidgetService.findWidgetById(vm.wgid);
+            promise
+                .success(function (widget) {
+                    vm.widget = widget;
+                    if (vm.widget.widgetType === 'HEADER') {
+                        vm.widgetName = vm.widget.name;
+                        vm.widgetText = vm.widget.text;
+                        vm.widgetSize = vm.widget.size;
+                    } else if (vm.widget.widgetType === 'IMAGE') {
+                        vm.widgetName = vm.widget.name;
+                        vm.widgetText = vm.widget.text;
+                        vm.widgetUrl = vm.widget.url;
+                        vm.widgetWidth = vm.widget.width;
+                    } else if (vm.widget.widgetType === 'YOUTUBE') {
+                        vm.widgetName = vm.widget.name;
+                        vm.widgetText = vm.widget.text;
+                        vm.widgetUrl = vm.widget.url;
+                        vm.widgetWidth = vm.widget.width;
+                    }
+                })
+                .error(function () {
+                    console.log("Error retrieving data");
+                });
         }
+
+
 
         function editWidget() {
             // refreshFields();
@@ -168,8 +209,14 @@
         }
 
         function deleteWidget() {
-            WidgetService.deleteWidget(vm.wgid);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+            var promise = WidgetService.deleteWidget(vm.wgid);
+            promise
+                .success(function(){
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                })
+                .error(function(){
+                    console.log("Error Deleting Widget.");
+                });
         }
 
     }

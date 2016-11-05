@@ -32,6 +32,12 @@
                 controller: "NewWidgetController",
                 controllerAs: "model"
             })
+            .when('/error/404', {
+                templateUrl : "misc/error.landing.404.html"
+            })
+            .when('error/500', {
+                templateUrl : "misc/error.landing.500.html"
+            })
             .when('/user/:uid', {
                 templateUrl : "views/user/profile.view.client.html",
                 controller: "ProfileController",
