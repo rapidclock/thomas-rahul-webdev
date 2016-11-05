@@ -26,7 +26,8 @@
             'findWidgetById': findWidgetById,
             'updateWidget': updateWidget,
             'deleteWidget': deleteWidget,
-            'deleteWidgetsByPage': deleteWidgetsByPage
+            'deleteWidgetsByPage': deleteWidgetsByPage,
+            'uploadImage' : uploadImage
         };
         return api;
 
@@ -138,6 +139,15 @@
         function deleteWidgetsByPage(pageId) {
             var url = "/api/page/" + pageId + "/widget";
             return $http.delete(url);
+        }
+
+        function uploadImage(formData) {
+            var url = "/api/upload";
+            var extras = {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            };
+            return $http.post(url, formData, extras);
         }
     }
 })();

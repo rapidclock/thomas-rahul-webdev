@@ -42,7 +42,13 @@
             <input type="file" id="widget-image-file-chooser">
             <p class="help-block">Upload the image from your device.</p>
         </div>
-        <a id="widget-image-upload-btn" class="btn btn-primary btn-block">Upload Image</a>
+        <form>
+            <input img-upload="model.myFile" type="file" class="form-control"/>
+            <input  name="width"    value="{{model.widget.width}}" style="display: none"/>
+            <input  name="widgetId" value="{{model.widget._id}}"   style="display: none"/>
+            <a ng-click="model.upload()" id="widget-image-upload-btn" class="btn btn-primary btn-block rt-upload">Upload Image</a>
+        </form>
+
         <a ng-click="model.deleteWidget()" id="widget-image-delete-btn" class="btn btn-danger  btn-block">Delete</a>
     </form>
 </div>

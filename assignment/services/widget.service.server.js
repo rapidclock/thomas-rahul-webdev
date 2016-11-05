@@ -14,7 +14,7 @@ module.exports = function (app) {
 
     // POST Calls.
     app.post('/api/page/:pid/widget', createEntity);
-    app.post ("/api/upload", upload.single('myFile'), uploadImage);
+    app.post ("/api/upload", upload.single('file'), uploadImage);
 
     // GET Calls.
     app.get('/api/page/:pid/widget', getAllWidgets);
@@ -35,14 +35,23 @@ module.exports = function (app) {
         var width         = req.body.width;
         var myFile        = req.file;
 
+        // var originalname  = myFile.originalname; // file name on user's computer
+        // var filename      = myFile.filename;     // new file name in upload folder
+        // var path          = myFile.path;         // full path of uploaded file
+        // var destination   = myFile.destination;  // folder where file is saved to
+        // var size          = myFile.size;
+        // var mimetype      = myFile.mimetype;
 
-        var originalname  = myFile.originalname; // file name on user's computer
-        var filename      = myFile.filename;     // new file name in upload folder
-        var path          = myFile.path;         // full path of uploaded file
-        var destination   = myFile.destination;  // folder where file is saved to
-        var size          = myFile.size;
-        var mimetype      = myFile.mimetype;
-        res.send(200);
+        var uploadDetails = {
+            originalname : myFile.originalname,
+            filename : myFile.filename,
+            fullpath : myFile.path,
+            destination : myFile.destination,
+            size : myFile.size,
+            mimetype : myFile.mimetype
+        };
+
+        res.send(uploadDetails);
     }
 
     function createEntity(req, res){

@@ -37,11 +37,11 @@
                    placeholder="100%">
         </div>
     </form>
-    <form action="/api/upload"  method="post" enctype="multipart/form-data">
-        <input  name="myFile"   type="file" class="form-control"/>
-        <input  name="width"    value="50" style="display: none"/>
-        <input  name="widgetId" value="11111"   style="display: none"/>
-        <button type="submit"   class="btn btn-block btn-primary">Upload Image</button>
+    <form>
+        <input img-upload="model.myFile" type="file" class="form-control"/>
+        <input  name="width"    value="{{model.widget.width}}" style="display: none"/>
+        <input  name="widgetId" value="{{model.widget._id}}"   style="display: none"/>
+        <a ng-click="model.upload()" id="widget-image-upload-btn" class="btn btn-primary btn-block rt-upload">Upload Image</a>
     </form>
     <a ng-click="model.createWidget()" class="btn btn-primary btn-block" id="widget-heading-create-btn">Create</a>
     <div ng-show="model.createError" class="alert alert-danger rt-alert-padding" role="alert">{{model.createError}}</div>

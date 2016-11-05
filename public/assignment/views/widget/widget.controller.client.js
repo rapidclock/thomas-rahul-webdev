@@ -53,14 +53,42 @@
         }
     }
 
-    function CreateWidgetController($routeParams, $location, WidgetService) {
+    function CreateWidgetController($scope, $routeParams, $location, WidgetService) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.widgetType = $routeParams.wtype;
         vm.createWidget = createWidget;
+        vm.upload = uploadImg;
         vm.createError = "";
+
+        function uploadImg() {
+            var file = vm.myFile;
+            var formData = new FormData();
+            formData.append('file', file);
+            if(vm.formData){
+                if(formData == vm.formData){
+                    return;
+                }
+            }
+            vm.formData = formData;
+            var promise = WidgetService.uploadImage(formData);
+            promise
+                .success(function (uploadDetails) {
+                    if(uploadDetails !== null){
+                        updateWidgetData(uploadDetails);
+                    }
+                })
+                .error(function () {
+                    console.log("File Upload Failed");
+                });
+        }
+
+        function updateWidgetData(uploadDetails){
+            vm.widgetName = uploadDetails.originalname;
+            vm.widgetUrl = "./uploads/" + uploadDetails.filename;
+        }
 
         function createWidget() {
             if (vm.widgetType === 'HEADER') {
@@ -105,15 +133,15 @@
                 width: vm.widgetWidth,
                 url: vm.widgetUrl
             };
+
             var promise = WidgetService.createWidget(vm.pid, newWidget);
             promise
                 .success(function(){
-
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
                 })
                 .error(function(){
                     console.log("Error Creating the " + vm.widgetType + " widget.")
                 });
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
         }
 
         function validateUrl(url){
@@ -134,6 +162,7 @@
         init();
         vm.editWidget = editWidget;
         vm.deleteWidget = deleteWidget;
+        vm.upload = uploadImg;
         vm.errorMessage = "";
 
         function init(){
@@ -162,7 +191,32 @@
                 });
         }
 
+        function uploadImg() {
+            var file = vm.myFile;
+            var formData = new FormData();
+            formData.append('file', file);
+            if(vm.formData){
+                if(formData == vm.formData){
+                    return;
+                }
+            }
+            vm.formData = formData;
+            var promise = WidgetService.uploadImage(formData);
+            promise
+                .success(function (uploadDetails) {
+                    if(uploadDetails !== null){
+                        updateWidgetData(uploadDetails);
+                    }
+                })
+                .error(function () {
+                    console.log("File Upload Failed");
+                });
+        }
 
+        function updateWidgetData(uploadDetails){
+            vm.widgetName = uploadDetails.originalname;
+            vm.widgetUrl = "./uploads/" + uploadDetails.filename;
+        }
 
         function editWidget() {
             // refreshFields();
