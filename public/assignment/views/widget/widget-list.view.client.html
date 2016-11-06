@@ -1,13 +1,15 @@
 <nav id="profile_nav_bar" class="navbar navbar-fixed-top rt-navbar">
     <div class="container-fluid">
         <p class="navbar-text pull-right">
-            <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new" class="navbar-link rt-text-color-white rt-col-l-r-20">
+            <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new"
+               class="navbar-link rt-text-color-white rt-col-l-r-20">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </p>
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-link rt-text-color-white rt-col-l-r-20">
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page"
+                   class="navbar-link rt-text-color-white rt-col-l-r-20">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </p>
@@ -19,19 +21,21 @@
     </div>
 </nav>
 <!--Body of the Page-->
-
-<div ng-repeat="widget in model.widgets" ng-switch="widget.widgetType" class="container-fluid rt-widget-list-dim-adj">
-    <div ng-switch-when="HEADER">
-        <ng-include src="'views/widget/widget-header.view.client.html'">
-    </div>
-    <div ng-switch-when="IMAGE">
-        <ng-include src="'views/widget/widget-image.view.client.html'">
-    </div>
-    <div ng-switch-when="YOUTUBE">
-        <ng-include src="'views/widget/widget-youtube.view.client.html'">
+<div class="container-fluid rt-widget-list-dim-adj">
+    <div jga-sortable callback="model.sort(start,end)">
+        <div ng-repeat="widget in model.widgets" ng-switch="widget.widgetType">
+            <div ng-switch-when="HEADER">
+                <ng-include src="'views/widget/widget-header.view.client.html'">
+            </div>
+            <div ng-switch-when="IMAGE">
+                <ng-include src="'views/widget/widget-image.view.client.html'">
+            </div>
+            <div ng-switch-when="YOUTUBE">
+                <ng-include src="'views/widget/widget-youtube.view.client.html'">
+            </div>
+        </div>
     </div>
 </div>
-
 <!--Body of the Page-->
 <div class="rt-widget-list-nav-bod-dim"></div>
 <nav class="navbar navbar-default navbar-fixed-bottom rt-navbar">

@@ -22,6 +22,7 @@ module.exports = function (app) {
 
     // PUT Calls.
     app.put('/api/widget/:wgid', updateDetails);
+    app.put('/api/page/:pid/widget', sortWidgets);
 
     // DELETE Calls.
     app.delete('/api/widget/:wgid', deleteFromSystem);
@@ -29,6 +30,103 @@ module.exports = function (app) {
 
 
     /* REST Functions */
+
+    function sortWidgets(req, res) {
+        var pid = parseInt(req.params.pid);
+        var start = parseInt(req.query.start);
+        var end = parseInt(req.query.end);
+        console.log(pid, start, end);
+        var widget = null;
+        var spliceIndex = -1;
+
+        if(start < end){
+            --end;
+        }
+
+        for(var i = 0; i < widgets.length; i++){
+            widget = widgets[i];
+            if(parseInt(widget.pageId) === pid){
+                if(start > 0){
+                    start--;
+                    continue;
+                }
+                if(start === 0){
+                    spliceIndex = i;
+                    break;
+                }
+            }
+        }
+
+        var splicedWidget = widgets.splice(spliceIndex, 1)[0];
+
+        for(var j = 0; j < widgets.length; j++){
+            widget = widgets[j];
+            if(parseInt(widget.pageId) === pid){
+                if(end > 0){
+                    --end;
+                    continue;
+                }
+                if(end === 0){
+                    spliceIndex = j;
+                    break;
+                }
+            }
+        }
+
+        if(spliceIndex >= widgets.length){
+            widgets.push(splicedWidget);
+        } else {
+            widgets.splice(spliceIndex, 0, splicedWidget);
+        }
+        res.sendStatus(200);
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // var splicedWidget = -1;
+        // // var startIndex = -1;
+        // // var endIndex = -1;
+        //
+        // var pageWidgets = -1;
+        // for(var i = 0;i<widgets.length;i++){
+        //     if(parseInt(widgets[i].pageId)===pid){
+        //         pageWidgets++;
+        //         if(pageWidgets===start){
+        //             var startIndex = i;
+        //         }
+        //         if(pageWidgets===end){
+        //             var endIndex = i;
+        //         }
+        //     }
+        // }
+        // var moved = widgets.splice(startIndex, 1)[0];
+        // widgets.splice(endIndex, 0, moved);
+        //
+        // // for(var i = 0;i<widgets.length;i++){
+        // //     if(parseInt(widgets[i].pageId)===pid){
+        // //         splicedWidget++;
+        // //         if(splicedWidget===start){
+        // //             startIndex = i;
+        // //         }
+        // //         if(splicedWidget===end){
+        // //             endIndex = i;
+        // //         }
+        // //     }
+        // // }
+        // //
+        // // var final = widgets.splice(startIndex, 1)[0];
+        // // widgets.splice(endIndex, 0, final);
+        // res.sendStatus(200);
+    }
 
     function uploadImage(req, res) {
         var widgetId      = req.body.widgetId;

@@ -27,7 +27,8 @@
             'updateWidget': updateWidget,
             'deleteWidget': deleteWidget,
             'deleteWidgetsByPage': deleteWidgetsByPage,
-            'uploadImage' : uploadImage
+            'uploadImage' : uploadImage,
+            'sortWidget' : sortWidget
         };
         return api;
 
@@ -148,6 +149,11 @@
                 headers: {'Content-Type': undefined}
             };
             return $http.post(url, formData, extras);
+        }
+        
+        function sortWidget(pid, start, end) {
+            var url = "/api/page/" + pid + "/widget?"+ "start=" + start + "&end=" + end;
+            return $http.put(url);
         }
     }
 })();

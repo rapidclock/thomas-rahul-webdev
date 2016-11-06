@@ -20,8 +20,8 @@
 <!--Body of the Page-->
 <div class="container rt-list-item-dim">
     <div class="list-group">
-        <ul class="list-group">
-            <li ng-repeat="website in model.websites" class="list-group-item borderless">
+        <ul jga-sortable class="list-group">
+            <li jga-sortable ng-repeat="website in model.websites" class="list-group-item borderless">
                 <a class="rt-hyperlinks" href="#/user/{{website.developerId}}/website/{{website._id}}/page">{{website.name}}</a>
                 <a href="#/user/{{website.developerId}}/website/{{website._id}}" class="navbar-link pull-right rt-col-l-r-20">
                     <span class="glyphicon glyphicon-cog"></span>

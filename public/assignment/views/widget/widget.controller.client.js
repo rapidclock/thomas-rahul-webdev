@@ -11,7 +11,20 @@
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
+        vm.sort = sortWidgets;
+
         init();
+
+        function sortWidgets(start, end) {
+            var promise = WidgetService.sortWidget(vm.pid, start, end);
+            promise
+                .success(function () {
+                    
+                })
+                .error(function () {
+                    
+                });
+        }
 
         function init() {
             var promise = WidgetService.findWidgetsByPageId(vm.pid);
