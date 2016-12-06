@@ -14,13 +14,15 @@
                     },
                     stop: function (event, ui) {
                         end = $(ui.item).index();
-                        console.log(start, end);
+                        // console.log(start, end);
                         // if(start >= end) {
                         //     start--;
                         // }
-                        if(end >= start){
-                            end = end + 1;
-                        }
+                        // if(end >= start){
+                        //     end = end + 1;
+                        // }
+                        // start -= 1;
+                        // end -= 1;
                         console.log(start, end);
                         scope.callback({
                             start : start,
@@ -35,7 +37,7 @@
             scope : {
                 callback : '&'
             },
-            link : linker,
+            link : linker
         };
         return directive;
     }

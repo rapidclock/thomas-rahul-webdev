@@ -36,8 +36,8 @@
             <div class="list-group rt-body-content">
                 <ul class="list-group">
                     <li ng-repeat="website in model.websites" class="list-group-item borderless">
-                        <a class="rt-hyperlinks" href="#/user/{{website.developerId}}/website/{{website._id}}/page">{{website.name}}</a>
-                        <a href="#/user/{{website.developerId}}/website/{{website._id}}" class="navbar-link pull-right">
+                        <a class="rt-hyperlinks" href="#/user/{{website._user}}/website/{{website._id}}/page">{{website.name}}</a>
+                        <a href="#/user/{{website._user}}/website/{{website._id}}" class="navbar-link pull-right">
                             <span class="glyphicon glyphicon-cog"></span>
                         </a>
                     </li>

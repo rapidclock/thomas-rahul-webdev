@@ -1,12 +1,5 @@
-module.exports = function(app){
-    var users = [
-        {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder", email: "alice@gmail.com"},
-        {_id: "100", username: "a", password: "a", firstName: "a", lastName: "a", email: "a@gmail.com"},
-        {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley", email: "bob@regge.com"},
-        {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia", email: "charles@bing.com"},
-        {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi", email: "jose@neu.com"}
-    ];
-
+module.exports = function(app, model){
+    var users = [];
     // POST Calls.
     app.post('/api/user', createEntity);
 
@@ -24,47 +17,93 @@ module.exports = function(app){
 
     function getUser(req, res) {
         var query = req.query;
-        var user = null;
+        // var user = null;
         if(query.username && query.password){
-            user = findUserByCredentials(query.username, query.password);
-        } else if(query.username){
-            user = findUserByUsername(query.username);
+            model
+                .userModel
+                .findUserByCredentials(query.username, query.password)
+                .then(
+                    function(user){
+                        if(user){
+                            res.json(user);
+                        } else {
+                            user = null;
+                            res.send(user);
+                        }
+                    },
+                    function (error) {
+                        res.sendStatus(400).send(error);
+                    }
+                );
         }
-        res.send(user);
     }
 
     function getUserById(req, res){
         var params = req.params;
-        var user = null;
         if(params.uid){
-            user = findUserById(params.uid);
+            model
+                .userModel
+                .findUserById(params.uid)
+                .then(
+                    function (user){
+                        if(user){
+                            res.json(user);
+                        } else {
+                            user = null;
+                            res.send(user);
+                        }
+                    },
+                    function (error){
+                        res.sendStatus(400).send(error);
+                    }
+                );
         }
-        res.send(user);
     }
 
     function createEntity(req, res) {
         var user = req.body;
-        var newUser = createUser(user);
-        if(newUser){
-            res.send(newUser);
-        } else {
-            // Internal Server Error.
-            res.sendStatus(500);
-        }
+        model
+            .userModel
+            .createUser(user)
+            .then(
+                function(newUser){
+                    res.json(newUser);
+                },
+                function(error){
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
     function updateDetails(req, res){
         var uid = req.params.uid;
         var user = req.body;
-        updateUser(uid, user);
-        res.send(user);
+        model
+            .userModel
+            .updateUser(uid, user)
+            .then(
+                function (user){
+                    res.json(user)
+                },
+                function (error){
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function deleteFromSystem(req, res){
         var uid = req.params.uid;
-        var user = findUserById(uid);
         if(uid){
-            deleteUser(uid);
-            res.send(user);
+            model
+                .userModel
+                .deleteUser(uid)
+                .then(
+                    function (status){
+                        res.sendStatus(200);
+                    },
+                    function (error){
+                        res.sendStatus(400).send(error);
+                    }
+                );
         } else{
             // Precondition Failed. Precondition is that the user exists.
             res.sendStatus(412);
@@ -73,65 +112,73 @@ module.exports = function(app){
 
     /* Standard CRUD Functions */
 
-    function getNextId() {
-        return new Date().getTime();
-    }
-
-    function createUser(user) {
-        var newUserId = getNextId();
-        var newUser = {
-            _id: newUserId,
-            username: user.username,
-            password: user.password,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email
-        };
-        users.push(newUser);
-        return newUser;
-    }
-
-    function findUserById(userId) {
-        for (u in users){
-            var user = users[u];
-            if(parseInt(user._id) === parseInt(userId)){
-                return user;
-            }
-        }
-        return null;
-    }
-
-    function findUserByUsername(username) {
-        for (u in users){
-            var user = users[u];
-            if(user.username === username){
-                return user;
-            }
-        }
-        return null;
-    }
-
-    function findUserByCredentials(username, password) {
-        for (u in users){
-            var user = users[u];
-            if((user.username === username) && (user.password === password)){
-                return user;
-            }
-        }
-        return null;
-    }
-
-    function updateUser(userId, user) {
-        var oldUser = findUserById(userId);
-        var index = users.indexOf(oldUser);
-        users[index].firstName = user.firstName;
-        users[index].lastName = user.lastName;
-        users[index].email = user.email;
-    }
-
-    function deleteUser(userId) {
-        var oldUser = findUserById(userId);
-        var index = users.indexOf(oldUser);
-        users.splice(index, 1);
-    }
+    // function getNextId() {
+    //     return new Date().getTime();
+    // }
+    //
+    // function createUser(user) {
+    //     // var newUser = {
+    //     //     username: user.username,
+    //     //     password: user.password,
+    //     //     email: user.email
+    //     // };
+    //     // if(user.firstName){
+    //     //     newUser.firstName = user.firstName;
+    //     // }
+    //     // if(user.lastName){
+    //     //     newUser.lastName = user.lastName;
+    //     // }
+    //     // if(user.email){
+    //     //     newUser.email = user.email;
+    //     // }
+    //     // if(user.phone){
+    //     //     newUser.phone = user.phone;
+    //     // }
+    //     // model.userModel.createUser(user);
+    //     // res.send(user);
+    // }
+    //
+    // function findUserById(userId) {
+    //     for (u in users){
+    //         var user = users[u];
+    //         if(parseInt(user._id) === parseInt(userId)){
+    //             return user;
+    //         }
+    //     }
+    //     return null;
+    // }
+    //
+    // function findUserByUsername(username) {
+    //     for (u in users){
+    //         var user = users[u];
+    //         if(user.username === username){
+    //             return user;
+    //         }
+    //     }
+    //     return null;
+    // }
+    //
+    // function findUserByCredentials(username, password) {
+    //     for (u in users){
+    //         var user = users[u];
+    //         if((user.username === username) && (user.password === password)){
+    //             return user;
+    //         }
+    //     }
+    //     return null;
+    // }
+    //
+    // function updateUser(userId, user) {
+    //     var oldUser = findUserById(userId);
+    //     var index = users.indexOf(oldUser);
+    //     users[index].firstName = user.firstName;
+    //     users[index].lastName = user.lastName;
+    //     users[index].email = user.email;
+    // }
+    //
+    // function deleteUser(userId) {
+    //     var oldUser = findUserById(userId);
+    //     var index = users.indexOf(oldUser);
+    //     users.splice(index, 1);
+    // }
 };

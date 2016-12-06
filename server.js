@@ -16,7 +16,7 @@ app.get('/', function(req, res){
 app.use(express.static(__dirname + '/public'));
 
 require("./assignment/app")(app);
-require ("./test/app.js")(app);
+// require ("./test/app.js")(app);
 
 app.set('ipaddress', (process.env.IP));
 app.set('port', (process.env.PORT || 3000));

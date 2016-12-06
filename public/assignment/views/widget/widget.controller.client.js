@@ -30,7 +30,23 @@
             var promise = WidgetService.findWidgetsByPageId(vm.pid);
             promise
                 .success(function (widgets) {
-                    vm.widgets = widgets;
+                    var allWidgets = [];
+
+                    for(i=0;i<widgets.length;i++){
+                        var promise = WidgetService.findWidgetById(widgets[i]);
+                        promise
+                            .success(function(widget){
+                                if (widget){
+                                    allWidgets.push(widget);
+                                }
+                            })
+                            .error(function(error){
+                                console.log(error);
+                            });
+                    }
+                    vm.widgets = allWidgets;
+
+                    // vm.widgets = widgets;
                 })
                 .error(function () {
                     console.log("Error Retrieving Widgets Data");
@@ -43,7 +59,7 @@
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-        init();
+        // init();
         vm.futureFeature = futureFeature;
         vm.featureMissingAlert = null;
 
@@ -129,6 +145,21 @@
                 }
             }
 
+            if (vm.widgetType === 'HTML') {
+                if(vm.widgetText === null || vm.widgetText === undefined || vm.widgetText === ""){
+                    vm.createError = "Text is required for HTML Widgets";
+                    return;
+                }
+            }
+
+            if (vm.widgetType === 'TEXT') {
+                // TODO Text creation controller code
+                if(vm.widgetName === null || vm.widgetName === undefined || vm.widgetName === ""){
+                    vm.createError = "Name is required for HTML Widgets";
+                    return;
+                }
+            }
+
             if(vm.widgetWidth !== null || vm.widgetWidth !== undefined || vm.widgetWidth !== ""){
                 if (parseInt(vm.widgetWidth) > 100 || parseInt(vm.widgetWidth) < 0){
                     vm.createError = "Width should be between 0 and 100.";
@@ -140,12 +171,31 @@
 
             var newWidget = {
                 name: vm.widgetName,
-                text: vm.widgetText,
-                widgetType: vm.widgetType,
-                size: vm.widgetSize,
-                width: vm.widgetWidth,
-                url: vm.widgetUrl
+                widgetType: vm.widgetType
             };
+            if(vm.widgetText){
+                newWidget.text = vm.widgetText;
+            }
+            if(vm.widgetSize){
+                newWidget.size = vm.widgetSize;
+            }
+            if(vm.widgetWidth){
+                newWidget.width = vm.widgetWidth;
+            }
+            if(vm.widgetUrl){
+                newWidget.url = vm.widgetUrl;
+            }
+            if(vm.widgetRows){
+                newWidget.rows = vm.widgetRows;
+            }
+            if(vm.widgetPlaceholder){
+                newWidget.placeholder = vm.widgetPlaceholder;
+            }
+            if(vm.widgetFormatted){
+                newWidget.formatted = vm.widgetFormatted;
+            }
+            console.log(newWidget);
+
 
             var promise = WidgetService.createWidget(vm.pid, newWidget);
             promise
@@ -183,6 +233,7 @@
             promise
                 .success(function (widget) {
                     vm.widget = widget;
+                    console.log(vm.widget);
                     if (vm.widget.widgetType === 'HEADER') {
                         vm.widgetName = vm.widget.name;
                         vm.widgetText = vm.widget.text;
@@ -197,6 +248,15 @@
                         vm.widgetText = vm.widget.text;
                         vm.widgetUrl = vm.widget.url;
                         vm.widgetWidth = vm.widget.width;
+                    } else if (vm.widget.widgetType === 'HTML') {
+                        vm.widgetName = vm.widget.name;
+                        vm.widgetText = vm.widget.text;
+                    } else if (vm.widget.widgetType === 'TEXT') {
+                        vm.widgetName = vm.widget.name;
+                        vm.widgetText = vm.widget.text;
+                        vm.widgetRows = vm.widget.rows;
+                        vm.widgetPlaceholder = vm.widget.placeholder;
+                        vm.widgetFormatted = vm.widget.formatted;
                     }
                 })
                 .error(function () {
@@ -244,14 +304,33 @@
                     return;
                 }
             }
+            console.log(vm.widgetName);
             var latestData = {
                 name: vm.widgetName,
                 text: vm.widgetText,
-                widgetType: vm.widget.widgetType,
-                size: vm.widgetSize,
-                width: vm.widgetWidth,
-                url: vm.widgetUrl
+                widgetType: vm.widget.widgetType
             };
+            if(vm.widgetSize){
+                latestData.size = vm.widgetSize;
+            }
+            if(vm.widgetWidth){
+                latestData.width = vm.widgetWidth;
+            }
+            if(vm.widgetUrl){
+                latestData.url = vm.widgetUrl;
+            }
+            if(vm.widgetRows){
+                latestData.rows = vm.widgetRows;
+            }
+            if(vm.widgetPlaceholder){
+                latestData.placeholder = vm.widgetPlaceholder;
+            }
+            if(vm.widgetFormatted || vm.widgetFormatted === false){
+                latestData.formatted = vm.widgetFormatted;
+            }
+            console.log('CHECK -+ ');
+            console.log(latestData);
+            console.log(vm.widgetFormatted);
             WidgetService.updateWidget(vm.wgid, latestData);
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
         }

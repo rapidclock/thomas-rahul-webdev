@@ -25,13 +25,19 @@
     <div jga-sortable callback="model.sort(start,end)">
         <div ng-repeat="widget in model.widgets" ng-switch="widget.widgetType">
             <div ng-switch-when="HEADER">
-                <ng-include src="'views/widget/widget-header.view.client.html'">
+                <ng-include src="'views/widget/header/widget-header.view.client.html'">
             </div>
             <div ng-switch-when="IMAGE">
-                <ng-include src="'views/widget/widget-image.view.client.html'">
+                <ng-include src="'views/widget/image/widget-image.view.client.html'">
             </div>
             <div ng-switch-when="YOUTUBE">
-                <ng-include src="'views/widget/widget-youtube.view.client.html'">
+                <ng-include src="'views/widget/youtube/widget-youtube.view.client.html'">
+            </div>
+            <div ng-switch-when="HTML">
+                <ng-include src="'views/widget/html/widget-html.view.client.html'">
+            </div>
+            <div ng-switch-when="TEXT">
+                <ng-include src="'views/widget/text/widget-text.view.client.html'">
             </div>
         </div>
     </div>

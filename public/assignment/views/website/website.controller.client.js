@@ -60,7 +60,7 @@
             }
             newWebsite = {
                 name: vm.websiteName,
-                desc: vm.websiteDesc
+                description: vm.websiteDesc
             };
             var promise = WebsiteService.createWebsite(vm.uid, newWebsite);
             promise
@@ -92,7 +92,7 @@
                 .success(function (website) {
                     vm.currentWebsite = website;
                     vm.currentWebsiteName = vm.currentWebsite.name;
-                    vm.currentWebsiteDesc = vm.currentWebsite.desc;
+                    vm.currentWebsiteDesc = vm.currentWebsite.description;
                 })
                 .error(function () {
                     console.log("Error retrieving data");
@@ -122,7 +122,7 @@
             }
             var latestData = {
                 name: vm.currentWebsiteName,
-                desc: vm.currentWebsiteDesc
+                description: vm.currentWebsiteDesc
             };
             var promise = WebsiteService.updateWebsite(vm.wid, latestData);
             promise
@@ -138,14 +138,15 @@
             var promise = WebsiteService.deleteWebsite(vm.wid);
             promise
                 .success(function(){
-                    var allDeletePromise = PageService.deletePagesByWebsite(vm.wid);
-                    allDeletePromise
-                        .success(function () {
-                            $location.url("/user/" + vm.uid + "/website");
-                        })
-                        .error(function () {
-                            console.log("Server Error Deleting all Pages");
-                        });
+                    // var allDeletePromise = PageService.deletePagesByWebsite(vm.wid);
+                    // allDeletePromise
+                    //     .success(function () {
+                    //         // $location.url("/user/" + vm.uid + "/website");
+                    //     })
+                    //     .error(function () {
+                    //         console.log("Server Error Deleting all Pages");
+                    //     });
+                    $location.url("/user/" + vm.uid + "/website");
                 })
                 .error(function(){
                     console.log("Server Error Deleting Website");

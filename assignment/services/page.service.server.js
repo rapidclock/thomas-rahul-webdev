@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, model) {
     var pages = [
         { _id: "321", name: "Post 1", title: "Post XXX", websiteId: "567" },
         { _id: "432", name: "Post 2", title: "SA 2", websiteId: "567" },
@@ -23,44 +23,83 @@ module.exports = function (app) {
     function createEntity(req, res){
         var wid = req.params.wid;
         var page = req.body;
-        var newPage = createPage(wid, page);
-        if(newPage){
-            res.sendStatus(200);
-        } else {
-            // Internal Server Error.
-            res.sendStatus(500);
-        }
+        model
+            .pageModel
+            .createPage(wid, page)
+            .then(
+                function (page){
+                    res.json(page);
+                },
+                function (error){
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function getAllPages(req, res){
         var wid = req.params.wid;
-        var allPages = findPageByWebsiteId(wid);
-        res.send(allPages);
+        model
+            .pageModel
+            .findAllPagesForWebsite(wid)
+            .then(
+                function (pages){
+                    res.json(pages);
+                },
+                function (error){
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function getPageById(req, res){
         var pid = req.params.pid;
-        var page = findPageById(pid);
-        res.send(page);
+        model
+            .pageModel
+            .findPageById(pid)
+            .then(
+                function (page){
+                    res.json(page);
+                },
+                function (error){
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function updateDetails(req, res){
         var pid = req.params.pid;
         var page = req.body;
-        updatePage(pid,page);
-        res.sendStatus(200);
+        model
+            .pageModel
+            .updatePage(pid, page)
+            .then(
+                function(page){
+                    res.json(page);
+                },
+                function(error){
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function deleteFromSystem(req, res){
         var pid = req.params.pid;
-        deletePage(pid);
-        res.sendStatus(200);
+        model
+            .pageModel
+            .deletePage(pid)
+            .then(
+                function (status){
+                    res.sendStatus(200);
+                },
+                function(error){
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function deleteAllFromSystem(req, res){
         var wid = req.params.wid;
-        deletePagesByWebsite(wid);
-        res.sendStatus(200);
+        // TODO implement delete all pages for website
     }
 
     /* Standard CRUD Operations */

@@ -122,7 +122,7 @@
             var promise = UserService.deleteUser($routeParams.uid);
             promise
                 .success(function (user) {
-                    if(user.username.includes("tina")){
+                    if(vm.username.includes("tina")){
                         vm.changeSuccess = "The Vivio, has left the website...";
                         $timeout(function () {
                             $location.url("/login");
