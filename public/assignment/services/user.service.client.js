@@ -13,10 +13,28 @@
             "findUserByUsername": findUserByUsername,
             "findUserByCredentials": findUserByCredentials,
             "updateUser": updateUser,
-            "deleteUser": deleteUser
+            "deleteUser": deleteUser,
+            "login" : login,
+            "logout" : logout,
+            "register" : register
         };
         return api;
 
+        // Passport Section
+
+        function login(user){
+            return $http.post("/api/login", user);
+        }
+
+        function logout() {
+            return $http.post("/api/logout");
+        }
+
+        function register(user) {
+            return $http.post("/api/register", user);
+        }
+
+        // Rest of Functions
         function createUser(user) {
             var url = "/api/user";
             return $http.post(url, user);

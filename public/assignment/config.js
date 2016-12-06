@@ -11,6 +11,20 @@
             'self',
             '*://www.youtube.com/**'
         ]);
+        var checkLoggedIn = function($q, $timeout, $http, $location, $rootScope) {
+            var deferred = $q.defer();
+            $http.get('/api/loggedin').success(function(user) {
+                $rootScope.errorMessage = null;
+                if (user !== '0' || user !== null) {
+                    $rootScope.currentUser = user;
+                    deferred.resolve();
+                } else {
+                    deferred.reject();
+                    $location.url('/');
+                }
+            });
+            return deferred.promise;
+        };
         $routeProvider
             .when('/', {
                 templateUrl : "/assignment/views/user/login.view.client.html",
@@ -37,6 +51,12 @@
             })
             .when('error/500', {
                 templateUrl : "misc/error.landing.500.html"
+            })
+            .when('/user', {
+                templateUrl: "views/user/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: { loggedin: checkLoggedIn }
             })
             .when('/user/:uid', {
                 templateUrl : "views/user/profile.view.client.html",

@@ -2,12 +2,22 @@
  * Created by RT on 17/09/16.
  */
 var express = require('express');
-var app = express();
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
 var http = require('http');
-
 var bodyParser = require('body-parser');
+var passport = require('passport');
+
+var app = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+app.use(session({ secret: 'secretsauce', resave : true, saveUninitialized : true }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/', function(req, res){
     res.redirect('/assignment/index.html')
