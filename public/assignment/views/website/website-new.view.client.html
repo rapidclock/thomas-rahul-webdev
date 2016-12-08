@@ -47,10 +47,11 @@
         <div class="rt-vertical-line"></div>
         <div class="col-xs-8">
             <div class="container-fluid rt-body-content">
-                <form>
+                <form name="websiteForm">
                     <div class="form-group">
                         <label for="website-name">Name</label>
-                        <input ng-model="model.websiteName" type="text" class="form-control" id="website-name" placeholder="Name">
+                        <input required ng-invalid name="name" ng-model="model.websiteName" type="text" class="form-control" id="website-name" placeholder="Name">
+                        <span ng-show="websiteForm.name.$invalid">name is required</span>
                     </div>
                     <div class="form-group">
                         <label for="website-description">Description</label>

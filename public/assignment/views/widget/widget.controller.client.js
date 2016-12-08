@@ -93,6 +93,10 @@
         vm.createError = "";
 
         function uploadImg() {
+            if(vm.myFile === undefined || vm.myFile === null || vm.myFile === ""){
+                vm.createError = "Cant upload without selecting any picture";
+                return;
+            }
             var file = vm.myFile;
             var formData = new FormData();
             formData.append('file', file);

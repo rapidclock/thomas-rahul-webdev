@@ -15,11 +15,12 @@
 </nav>
 <!--Body of the Page-->
 <div class="container rt-form-top-padding">
-    <form>
+    <form name="widgetForm">
         <div class="form-group">
             <label for="widget-image-name">Name</label>
-            <input ng-model="model.widgetName" type="text" class="form-control" id="widget-image-name"
+            <input required ng-invalid name="name" ng-model="model.widgetName" type="text" class="form-control" id="widget-image-name"
                    placeholder="Name">
+            <span ng-show="widgetForm.name.$invalid">name is required</span>
         </div>
         <div class="form-group">
             <label for="widget-image-text">Text</label>

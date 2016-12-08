@@ -56,6 +56,7 @@ module.exports = function(app, model){
 
     // GET Calls.
     app.get('/api/user', getUser);
+    app.get('/api/user/uname', getUserByUserName);
     app.get('/api/user/:uid', getUserById);
     app.get ('/api/loggedin', loggedin);
 
@@ -113,6 +114,29 @@ module.exports = function(app, model){
             model
                 .userModel
                 .findUserByCredentials(query.username, query.password)
+                .then(
+                    function(user){
+                        if(user){
+                            res.json(user);
+                        } else {
+                            user = null;
+                            res.send(user);
+                        }
+                    },
+                    function (error) {
+                        res.sendStatus(400).send(error);
+                    }
+                );
+        }
+    }
+
+    function getUserByUserName(req, res) {
+        var query = req.query;
+        // var user = null;
+        if(query.username){
+            model
+                .userModel
+                .findUserByUsername(query.username)
                 .then(
                     function(user){
                         if(user){

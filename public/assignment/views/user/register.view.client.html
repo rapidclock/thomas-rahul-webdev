@@ -1,18 +1,32 @@
 <div class="container">
     <div ng-show="model.registerError" class="alert alert-danger" role="alert">{{model.registerError}}</div>
     <h1>Register</h1>
+    <form name="registerForm">
     <input type="text"
            class="form-control"
+           name="username"
            placeholder="username"
+           required
+           ng-invalid
            ng-model="model.username"/>
+        <span ng-show="registerForm.username.$invalid">username is required</span>
     <input type="password"
            class="form-control"
+           name="password"
+           required
+           ng-invalid
            placeholder="password"
            ng-model="model.password"/>
+        <span ng-show="registerForm.password.$invalid">password is required</span>
     <input type="password"
            class="form-control"
+           name="password2"
+           required
+           ng-invalid
            placeholder="verify password"
            ng-model="model.secondPassword"/>
+        <span ng-show="registerForm.password2.$invalid">this is also required</span>
+    </form>
     <a ng-click="model.register(model.username, model.password, model.secondPassword)"
        class="btn btn-primary btn-block">Register</a>
     <a class="btn btn-danger  btn-block"

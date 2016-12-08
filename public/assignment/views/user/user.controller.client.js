@@ -10,36 +10,39 @@
         vm.login = login;
         vm.logout = logout;
 
-        // function login(username, password) {
-        //     var promise = UserService.findUserByCredentials(username, password);
-        //     promise
-        //         .success(function(user){
-        //             if (user === null || user === undefined || user === "") {
-        //                 vm.error = "No Such User";
-        //             } else {
-        //                 $location.url("/user/" + user._id);
-        //             }
-        //         })
-        //         .error(function(){
-        //             vm.error = "Error Connecting to Server. Please try again later.";
-        //             $timeout(function () {
-        //                 vm.error = null;
-        //             }, 5000);
-        //         });
-        // }
-
         function login(uname, paswd) {
+            if (uname === undefined || uname === null || uname === "" || paswd === undefined || paswd === "" || paswd === null) {
+                vm.error = "Username and Passwords cannot be blank.";
+                return;
+            }
             var userData = {
-                username : uname,
-                password : paswd
+                username: uname,
+                password: paswd
             };
             UserService
-                .login(userData)
+                .findUserByCredentials(uname, paswd)
                 .then(
                     function (response) {
                         var user = response.data;
-                        $rootScope.currentUser = user;
-                        $location.url("/user/" + user._id);
+                        if (user === null || user === undefined || user === "") {
+                            vm.error = "No Such User";
+                        } else {
+                            UserService
+                                .login(userData)
+                                .then(
+                                    function (response) {
+                                        var user = response.data;
+                                        console.log(user);
+                                        $rootScope.currentUser = user;
+                                        $location.url("/user/" + user._id);
+                                    },
+                                    function (error) {
+                                        vm.error = "Error Connecting to Server. Please try again later.";
+                                        $timeout(function () {
+                                            vm.error = null;
+                                        }, 5000);
+                                    });
+                        }
                     },
                     function (error) {
                         vm.error = "Error Connecting to Server. Please try again later.";
@@ -47,6 +50,7 @@
                             vm.error = null;
                         }, 5000);
                     });
+
         }
 
         function logout() {
@@ -77,38 +81,50 @@
                 vm.registerError = "Passwords do not match.";
                 return;
             }
-            var user = UserService.findUserByUsername(username);
-            if (user !== null) {
-                user = {
-                    username: username,
-                    password: password,
-                    firstName: "",
-                    lastName: "",
-                    email: ""
-                };
-                // var promise = UserService.createUser(user);
-                // promise
-                //     .success(function(user){
-                //         $location.url("/user/" + user._id);
-                //     })
-                //     .error(function(){
-                //         vm.registerError = "Sorry, There was an issue. Our minions were not behaving themselves. v_v";
-                //     });
-                var promise = UserService.register(user);
-                promise
-                    .success(function(response){
-                        var userData = response;
-                        $rootScope.currentUser = userData;
-                        $location.url("/user/" + userData._id);
-                    })
-                    .error(function(){
-                        vm.registerError = "Sorry, There was an issue. Our minions were not behaving themselves. v_v";
-                    });
 
-            }
-            else {
-                vm.registerError = "Sorry Username already Exists.";
-            }
+            UserService
+                .findUserByUsername(username)
+                .then(
+                    function (response) {
+                        var user = response.data;
+                        if (user !== "") {
+                            vm.registerError = "Sorry Username already Exists.";
+                        }
+                        else {
+                            var userDetail = {
+                                username: username,
+                                password: password,
+                                firstName: "",
+                                lastName: "",
+                                email: ""
+                            };
+                            var promise = UserService.register(userDetail);
+                            promise
+                                .success(function (response) {
+                                    var userData = response;
+                                    $rootScope.currentUser = userData;
+                                    $location.url("/user/" + userData._id);
+                                })
+                                .error(function () {
+                                    vm.registerError = "Sorry, There was an issue. Our minions were not behaving themselves. v_v";
+                                });
+                        }
+                    },
+                    function (error) {
+                        console.log(error);
+                    }
+                );
+
+
+            // var promise = UserService.createUser(user);
+            // promise
+            //     .success(function(user){
+            //         $location.url("/user/" + user._id);
+            //     })
+            //     .error(function(){
+            //         vm.registerError = "Sorry, There was an issue. Our minions were not behaving themselves. v_v";
+            //     });
+
         }
     }
 
@@ -124,7 +140,7 @@
         vm.deleteUser = deleteUser;
         init();
 
-        function init(){
+        function init() {
             var promise = UserService.findUserById($routeParams.uid);
             promise
                 .success(function (user) {
@@ -157,7 +173,7 @@
                 })
                 .error(function () {
                     vm.changeFailure = "Update Failed.";
-                    $timeout(function(){
+                    $timeout(function () {
                         vm.changeFailure = null;
                     }, 3000);
                 });
@@ -168,7 +184,7 @@
             var promise = UserService.deleteUser($routeParams.uid);
             promise
                 .success(function (user) {
-                    if(vm.username.includes("tina")){
+                    if (vm.username.includes("tina")) {
                         vm.changeSuccess = "The Vivio, has left the website...";
                         $timeout(function () {
                             $location.url("/login");
@@ -182,4 +198,5 @@
                 });
         }
     }
-})();
+})
+();
