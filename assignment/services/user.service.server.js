@@ -113,7 +113,7 @@ module.exports = function(app, model){
         if(query.username && query.password){
             model
                 .userModel
-                .findUserByCredentials(query.username, query.password)
+                .findUserByUsername(query.username)
                 .then(
                     function(user){
                         if(user){
