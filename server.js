@@ -28,12 +28,15 @@ app.use(express.static(__dirname + '/public'));
 var mongoose = require('mongoose');
 var connectionString = 'mongodb://localhost:27017/wms';
 
-if (process.env.MLAB_WM_ASGN_DB_USERNAME) {
-    connectionString = process.env.MLAB_WM_DB_URL_INIT +
-        process.env.MLAB_WM_ASGN_DB_USERNAME + ":" +
-        process.env.MLAB_WM_ASGN_DB_PASSWORD +
-        process.env.MLAB_WM_ASGN_DB_URL_END + '/' +
-        process.env.MLAB_WM_ASGN_DB_NAME;
+// if (process.env.MLAB_WM_ASGN_DB_USERNAME) {
+//     connectionString = process.env.MLAB_WM_DB_URL_INIT +
+//         process.env.MLAB_WM_ASGN_DB_USERNAME + ":" +
+//         process.env.MLAB_WM_ASGN_DB_PASSWORD +
+//         process.env.MLAB_WM_ASGN_DB_URL_END + '/' +
+//         process.env.MLAB_WM_ASGN_DB_NAME;
+// }
+if (process.env.MLAB_DB_VAR_FLAG) {
+    connectionString = process.env.MLAB_CONN_STRING;
 }
 mongoose.connect(connectionString);
 
