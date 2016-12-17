@@ -1,6 +1,6 @@
 module.exports = function(mongoose, userModel){
 	var websiteSchema = require('./website.schema.server.js')(mongoose);
-	var websiteModel = mongoose.model('Website', websiteSchema);
+	// var websiteModel = mongoose.model('Website', websiteSchema);
 
 	var api = {
 		'createWebsiteForUser' : createWebsiteForUser,
@@ -8,10 +8,15 @@ module.exports = function(mongoose, userModel){
 		'findWebsiteById' : findWebsiteById,
 		'updateWebsite' : updateWebsite,
 		'removePageFromWebsite' : removePageFromWebsite,
-		'deleteWebsite' : deleteWebsite
+		'deleteWebsite' : deleteWebsite,
+        setModel : setModel
 	};
 
 	return api;
+
+    function setModel(_model){
+        model = _model;
+    }
 
 	// Function Definition Section
 

@@ -1,0 +1,114 @@
+<md-toolbar class="md-hue-2 md-toolbar-tools" md-whiteframe="10">
+    <md-button class="md-icon-button md-accent" aria-label="Back">
+        <a href="#/login">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </a>
+    </md-button>
+    <h1>Web Messenger</h1>
+    <span flex></span>
+    <md-button md-theme="loginTheme" class="md-raised md-primary" aria-label="Register">
+        <a href="#/login">Login</a>
+        <md-tooltip class="" md-direction="left">
+            Login
+        </md-tooltip>
+    </md-button>
+</md-toolbar>
+
+
+<div class="container" layout="row" flex="100" layout-fill>
+    <md-content bg-img={{model.bgUrl}} flex md-whiteframe="2" layout-padding>
+        <div class="rt-page-padding" layout="column" layout-padding>
+            <form md-theme="lightForm" name="registerForm" ng-submit="model.register()" layout="column">
+                <md-input-container>
+                    <label>User Name</label>
+                    <input required
+                           name="username"
+                           type="text"
+                           ng-model="model.username"
+                           flex/>
+                    <div ng-messages="registerForm.username.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Password</label>
+                        <input required
+                               name="password"
+                               type="password"
+                               ng-model="model.password"/>
+                        <div ng-messages="registerForm.password.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Password</label>
+                        <input required
+                               name="secondpassword"
+                               type="password"
+                               ng-model="model.secondPassword"/>
+                        <div ng-messages="registerForm.secondpassword.$error">
+                            <div ng-message="required">Both Passwords must match.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>First Name</label>
+                        <input required
+                               name="firstName"
+                               type="text"
+                               ng-model="model.firstName"/>
+                        <div ng-messages="registerForm.firstName.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Last Name</label>
+                        <input required
+                               name="lastName"
+                               type="text"
+                               ng-model="model.lastName"/>
+                        <div ng-messages="registerForm.lastName.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container>
+                    <label>Email</label>
+                    <input required
+                           name="email"
+                           type="email"
+                           ng-model="model.email"
+                           ng-pattern="/^.+@.+\..+$/"
+                           flex/>
+                    <div ng-messages="registerForm.email.$error">
+                        <div ng-message-exp="required">
+                            Your email is required.
+                        </div>
+                        <div ng-message-exp="pattern">
+                            Your email should look like an e-mail address.
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>Phone Number</label>
+                    <input name="phone"
+                           required
+                           ng-model="model.phone"
+                           ng-pattern="/^[0-9]{10}$/"
+                           flex/>
+                    <div ng-messages="registerForm.phone.$error">
+                        <div ng-message-exp="required">
+                            Your Phone Number is required.
+                        </div>
+                        <div ng-message="pattern">(###) ###-#### - Please enter a valid 10 digit phone number.</div>
+                    </div>
+                </md-input-container>
+                <md-button flex md-theme="registerTheme" type="submit" class="md-primary md-raised"
+                           aria-label="Register" ng-disabled="registerForm.$invalid">Register
+                </md-button>
+            </form>
+        </div>
+    </md-content>
+</div>

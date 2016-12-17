@@ -1,0 +1,38 @@
+<div layout="column" layout-align="center stretch">
+    <form name="chatForm" ng-submit="model.sendMessage()" layout="column" flex>
+        <!--<div class="rt-chat-box red" layout="column" layout-padding>-->
+        <!--<div ng-repeat="message in model.messages" flex>-->
+        <!--&lt;!&ndash;{{message.userFrom}}, {{model.currentChatRoom.userFrom._id}}, {{model.userId}}&ndash;&gt;-->
+        <!--<div ng-if="message.userFrom !== model.userId">-->
+        <!--<ng-include src="'views/comm/message.other.view.client.html'"/>-->
+        <!--</div>-->
+        <!--<div ng-if="message.userFrom === model.userId">-->
+        <!--<ng-include src="'views/comm/message.self.view.client.html'"/>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<ng-include src="'views/comm/message.box.view.client.html'"/>-->
+        <div flex="70">
+            <my-chatbox ng-model="model.messages"></my-chatbox>
+        </div>
+        <div layout="row" flex="30">
+            <md-input-container flex layout-padding layout-align="center center" class="md-block">
+                        <textarea name="messageText" ng-model="model.content" md-maxlength="50" rows="2"
+                                  md-select-on-focus
+                                  aria-label="Chat Box"></textarea>
+                <div ng-messages="chatForm.messageText.$error" role="alert" multiple>
+                    <div ng-message="md-maxlength">
+                        Exceeded Max Length
+                    </div>
+                </div>
+            </md-input-container>
+            <div>
+                <md-button type="submit" class="md-fab" aria-label="Send Message" ng-disabled="chatForm.$invalid">
+                    <md-icon md-font-library="material-icons" class="md-light md-48">
+                        face
+                    </md-icon>
+                </md-button>
+            </div>
+        </div>
+    </form>
+</div>

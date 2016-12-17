@@ -1,0 +1,110 @@
+<div class="container" layout="row" flex="100" layout-fill>
+    <md-content bg-img={{model.bgUrl}} flex md-whiteframe="2" layout-padding>
+        <div class="rt-page-padding" layout="column" layout-padding>
+            <form md-theme="lightForm" name="profileForm" ng-submit="model.updateUser()" layout="column">
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>First Name</label>
+                        <input required
+                               name="firstName"
+                               type="text"
+                               ng-model="model.firstName"/>
+                        <div ng-messages="profileForm.firstName.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Last Name</label>
+                        <input required
+                               name="lastName"
+                               type="text"
+                               ng-model="model.lastName"/>
+                        <div ng-messages="profileForm.lastName.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Email</label>
+                        <input required
+                               name="email"
+                               type="email"
+                               ng-model="model.email"
+                               ng-pattern="/^.+@.+\..+$/"/>
+                        <div ng-messages="profileForm.email.$error">
+                            <div ng-message-exp="required">
+                                Your email is required.
+                            </div>
+                            <div ng-message-exp="pattern">
+                                Your email should look like an e-mail address.
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Phone Number</label>
+                        <input name="phone"
+                               required
+                               ng-model="model.phone"
+                               ng-pattern="/^[0-9]{10}$/"/>
+                        <div ng-messages="profileForm.phone.$error">
+                            <div ng-message="required">
+                                Your Phone Number is required.
+                            </div>
+                            <div ng-message="pattern">(###) ###-#### - Please enter a valid 10 digit phone number.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>Caption</label>
+                    <textarea name="caption" ng-model="model.caption" md-maxlength="50" rows="1"
+                              md-select-on-focus></textarea>
+                    <div ng-messages="profileForm.caption.$error" role="alert" multiple>
+                        <div ng-message="md-maxlength">
+                            Exceeded Max Length
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>About Me</label>
+                    <textarea name="aboutme" ng-model="model.aboutMe" md-maxlength="300" rows="5"
+                              md-select-on-focus></textarea>
+                    <div ng-messages="profileForm.aboutme.$error" role="alert" multiple>
+                        <div ng-message="md-maxlength">
+                            Exceeded Max Length
+                        </div>
+                    </div>
+                </md-input-container>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Latitude</label>
+                        <input required
+                               name="latitude"
+                               type="text"
+                               disabled
+                               ng-model="model.location.lat"/>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Longitude</label>
+                        <input required
+                               disabled
+                               name="longitude"
+                               type="text"
+                               ng-model="model.location.lng"/>
+                    </md-input-container>
+                </div>
+                <md-button flex md-theme="registerTheme" type="submit" class="md-primary md-raised"
+                           aria-label="Update" ng-disabled="profileForm.$invalid">
+                    Update Details
+                </md-button>
+            </form>
+            <md-button ng-click="model.setGeoLocation()" class="md-accent md-raised md-hue-2" aria-label="Get Location">
+                Get Geo-Location
+            </md-button>
+            <div id="map" class="rt-gmaps"></div>
+            <md-button class="md-warn md-raised md-hue-2" aria-label="De-Register">
+                <a ng-click="model.confirmDeregister($event)">De-Register</a>
+            </md-button>
+        </div>
+    </md-content>
+</div>

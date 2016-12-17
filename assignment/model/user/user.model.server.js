@@ -2,6 +2,8 @@ module.exports = function(mongoose){
 	var userSchema = require('./user.schema.server.js')(mongoose);
 	var userModel = mongoose.model('User', userSchema);
 
+	var model = {};
+
 	var api = {
 		'createUser' : createUser,
 		'findUserById' : findUserById,
@@ -9,10 +11,15 @@ module.exports = function(mongoose){
 		'findUserByCredentials' : findUserByCredentials,
 		'updateUser' : updateUser,
 		'removeWebsiteFromUser' : removeWebsiteFromUser,
-		'deleteUser' : deleteUser
+		'deleteUser' : deleteUser,
+		setModel : setModel
 	};
 
 	return api;
+
+    function setModel(_model){
+        model = _model;
+    }
 
 	// Function Definition Section
 

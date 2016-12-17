@@ -1,0 +1,211 @@
+html, body {
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.blue {
+    background-color: burlywood;
+}
+
+.red {
+    background-color: darksalmon;
+}
+
+.green {
+    background-color: gainsboro;
+}
+
+/*User Page*/
+
+.rt-form-text {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.rt-page-padding {
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+.hint {
+    position: absolute;
+    left: 2px;
+    right: auto;
+    bottom: 7px;
+    /* Copy styles from ng-messages */
+    font-size: 12px;
+    line-height: 14px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    /* Set our own color */
+    color: purple;
+}
+
+.avatar {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0px;
+    vertical-align: middle;
+    zoom: 0.70;
+    transform: translateZ(0);
+    -webkit-transform: scale(0.70);
+    -moz-transform: scale(0.70);
+}
+
+/*Chat Section*/
+
+.rt-chat-box {
+    margin: 10px;
+    height: 200px;
+}
+
+.rt-ta-dim {
+    float: left;
+    width: 100px;
+}
+
+/*Toasts*/
+
+.md-toast-error .md-toast-content {
+    background: rgb(193, 30, 23) !important;
+}
+
+.md-toast-success .md-toast-content {
+    background: rgb(86, 172, 67) !important;
+}
+
+.md-toast-neutral .md-toast-content {
+    background: rgb(87, 179, 185) !important;
+}
+
+/* Card */
+
+/*md-card .md-clickable {*/
+/*overflow: hidden;*/
+/*}*/
+
+/*button .rt-button-gap .md-button .md-raised .md-warn {*/
+/*margin : 10px;*/
+/*}*/
+
+.rt-button-gap md-card .md-actions:not(.layout-column) .md-button:not(.md-icon-button):first-of-type, md-card md-card-actions:not(.layout-column) .md-button:not(.md-icon-button):first-of-type {
+    margin-left: 10px;
+}
+
+/*Chat*/
+
+.holder {
+    border: 1px dotted navy;
+    margin-top: 10px;
+    height: 400px;
+    width: 100%;
+    background-image: url("../uploads/defaults/register_background.jpg");
+    background-repeat: no-repeat;
+    font: 14px Roboto;
+    position: relative;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+
+.scroller {
+    position: absolute;
+    bottom: 0px;
+    height: inherit;
+    width: 100%;
+    overflow-y: auto;
+    /*max-height: 400px;*/
+    word-wrap: break-word;
+}
+
+.wrap {
+    position: relative;
+    width: 100%;
+    word-wrap: break-word;
+    padding-bottom: 8px;
+}
+
+.message {
+    text-align: left;
+    padding: 0 10px;
+}
+
+.message > div {
+    display: block;
+    background-color: #FFE;
+    padding: 6px;
+    margin: 4px 0px;
+    border-radius: 10px;
+}
+
+.message .time {
+    font-size: 8px;
+    color: silver;
+    margin-bottom: 0;
+}
+
+.message .index:after {
+    content: ': ';
+}
+
+.message.mine > div, .message.their > div {
+    display: inline-block;
+}
+
+.message.mine > div {
+    border-bottom-left-radius: 0;
+    position: relative;
+}
+
+.message.mine > div:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-bottom: 12px solid #FFE;
+    border-left: 8px solid transparent;
+    bottom: 0;
+    left: -8px;
+    position: absolute;
+}
+
+.message.their {
+    text-align: right;
+}
+
+.message.their > div {
+    background-color: greenyellow;
+    border-bottom-right-radius: 0;
+    right: 0;
+    position: relative;
+}
+
+.message.their > div:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-bottom: 12px solid #CCF;
+    border-right: 8px solid transparent;
+    bottom: 0;
+    right: -8px;
+    position: absolute;
+}
+
+.message.their .time {
+    color: #8992D6;
+}
+
+
+/*Gmaps*/
+.rt-gmaps{
+    height:150px;
+    width:325px;
+}

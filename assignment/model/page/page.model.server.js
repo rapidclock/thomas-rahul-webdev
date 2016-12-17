@@ -1,6 +1,6 @@
 module.exports = function(mongoose, websiteModel){
 	var pageSchema = require('./page.schema.server.js')(mongoose);
-	var pageModel = mongoose.model('Page', pageSchema);
+	// var pageModel = mongoose.model('Page', pageSchema);
 
 	var api = {
 		'createPage' : createPage,
@@ -11,11 +11,15 @@ module.exports = function(mongoose, websiteModel){
 		'removeWidgetFromPage' : removeWidgetFromPage,
 		// 'findAllWidgetsForPage' : findAllWidgetsForPage,
         'reorderWidget' : reorderWidget,
-		'deletePage' : deletePage
+		'deletePage' : deletePage,
+        setModel : setModel
 	};
 
 	return api;
 
+    function setModel(_model){
+        model = _model;
+    }
 	// Function Definition Section
 	
 	function createPage(websiteId, page){

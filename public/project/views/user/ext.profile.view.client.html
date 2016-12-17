@@ -1,0 +1,55 @@
+<md-toolbar class="md-hue-2 md-toolbar-tools" md-whiteframe="10">
+    <h1>{{model.extUser.username}}'s Profile</h1>
+    <span flex></span>
+    <md-button class="md-accent md-raised md-hue-3" aria-label="Profile">
+        <a href="#/user/{{model.primaryUId}}">Back to My Profile</a>
+        <md-tooltip class="" md-direction="left">
+            Profile
+        </md-tooltip>
+    </md-button>
+    <md-button md-theme="buttonTheme" class="md-raised md-primary" aria-label="Logout">
+        <a ng-click="model.logout()">Logout</a>
+        <md-tooltip class="" md-direction="bottom">
+            Logout
+        </md-tooltip>
+    </md-button>
+</md-toolbar>
+
+<!-- Body Begins-->
+<div class="container" layout="row" flex="100" layout-fill>
+    <md-content bg-img={{model.bgUrl}} flex md-whiteframe="2" layout-padding>
+        <div class="rt-page-padding" layout="column" layout-padding>
+            <form md-theme="lightForm" name="profileForm" ng-submit="model.updateUser()" layout="column">
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>First Name</label>
+                        <input disabled
+                               name="firstName"
+                               type="text"
+                               ng-model="model.firstName"/>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Last Name</label>
+                        <input disabled
+                               name="lastName"
+                               type="text"
+                               ng-model="model.lastName"/>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>Caption</label>
+                    <textarea disabled name="caption" ng-model="model.caption" rows="1"></textarea>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>About Me</label>
+                    <textarea disabled name="aboutme" ng-model="model.aboutMe" rows="5"></textarea>
+                </md-input-container>
+                <!--<md-button flex md-theme="registerTheme" type="submit" class="md-primary md-raised"-->
+                <!--aria-label="Update" ng-disabled="profileForm.$invalid">-->
+                <!--Update Details-->
+                <!--</md-button>-->
+            </form>
+        </div>
+    </md-content>
+</div>
+<!-- Body Ends-->

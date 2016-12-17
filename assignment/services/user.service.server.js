@@ -1,7 +1,7 @@
 module.exports = function(app, model){
-    var passport = require('passport');
-    var LocalStrategy = require('passport-local').Strategy;
-    passport.use(new LocalStrategy(localStrategy));
+    // var passport = require('passport');
+    // var LocalStrategy = require('passport-local').Strategy;
+    // passport.use(new LocalStrategy(localStrategy));
 
     var bcrypt = require("bcrypt-nodejs");
 
@@ -24,33 +24,34 @@ module.exports = function(app, model){
             );
     }
 
-    // Serialize User
-    passport.serializeUser(serializeUser);
-    function serializeUser(user, done) {
-        done(null, user);
-    }
-
-    // Deserialize User
-    passport.deserializeUser(deserializeUser);
-    function deserializeUser(user, done) {
-        model
-            .userModel
-            .findUserById(user._id)
-            .then(
-                function(user){
-                    done(null, user);
-                },
-                function(err){
-                    done(err, null);
-                }
-            );
-    }
+    // // Serialize User
+    // passport.serializeUser(serializeUser);
+    // function serializeUser(user, done) {
+    //     done(null, user);
+    // }
+    //
+    // // Deserialize User
+    // passport.deserializeUser(deserializeUser);
+    // function deserializeUser(user, done) {
+    //     model
+    //         .userModel
+    //         .findUserById(user._id)
+    //         .then(
+    //             function(user){
+    //                 done(null, user);
+    //             },
+    //             function(err){
+    //                 done(err, null);
+    //             }
+    //         );
+    // }
 
 
     var users = [];
     // POST Calls.
     app.post('/api/user', createEntity);
-    app.post('/api/login', passport.authenticate('local'), login);
+    // app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/login', login_new);
     app.post('/api/logout', logout);
     app.post('/api/register', register);
 
@@ -72,6 +73,28 @@ module.exports = function(app, model){
     function login(req, res) {
         var user = req.user;
         res.json(user);
+    }
+
+    function login_new(req, res) {
+        var user = req.body;
+        if(user.username && user.password){
+            model
+                .userModel
+                .findUserByUsername(user.username)
+                .then(
+                    function(user){
+                        if(user){
+                            res.json(user);
+                        } else {
+                            user = null;
+                            res.json(user);
+                        }
+                    },
+                    function (error) {
+                        res.sendStatus(400).send(error);
+                    }
+                );
+        }
     }
 
     function logout(req, res) {

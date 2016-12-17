@@ -1,0 +1,55 @@
+<md-toolbar class="md-hue-2 md-toolbar-tools" md-whiteframe="10">
+    <md-button ng-click="model.toggleLeft()" class="md-icon-button" aria-label="Menu">
+        <md-icon md-font-library="material-icons" class="md-light md-24">menu</md-icon>
+    </md-button>
+    <div ng-if="model.chatId && model.userTo" layout="row" layout-align="center center">
+        <img ng-src="{{model.userTo.profilePic}}" class="md-avatar avatar"/>
+        <h1>{{model.userTo.firstName}} {{model.userTo.lastName}}</h1>
+    </div>
+    <div ng-if="!model.chatId">
+        <h1>{{model.user.username}}'s Chat Screen</h1>
+    </div>
+
+
+    <span flex></span>
+    <md-button md-theme="buttonTheme" class="md-raised md-accent md-hue-3" aria-label="Profile">
+        <a href="#/user/{{model.user._id}}">Profile</a>
+        <md-tooltip class="" md-direction="bottom">
+            Profile
+        </md-tooltip>
+    </md-button>
+</md-toolbar>
+
+<!-- Body Begins-->
+<div layout="column" layout-fill style="height: 100%">
+    <div class="container" layout="row" flex="100" layout-fill>
+        <!--Sidebar-->
+        <md-sidenav class="md-sidenav-left" md-component-id="left"
+                    md-whiteframe="7">
+            <md-toolbar layout="row" layout-align="center center">
+                <md-button ng-click="model.toggleLeft()" class="md-icon-button" aria-label="Menu">
+                    <md-icon md-font-library="material-icons" class="md-light md-24">arrow_back</md-icon>
+                </md-button>
+                <h1 class="md-toolbar-tools">Chat Room</h1>
+                <md-button md-theme="buttonTheme" class="md-raised md-warn" aria-label="Friends List">
+                    <a href="#/user/{{model.user._id}}/friends">Friends</a>
+                    <md-tooltip class="" md-direction="bottom">
+                        Friends List
+                    </md-tooltip>
+                </md-button>
+            </md-toolbar>
+            <md-content layout-margin>
+                <md-list-item class="md-2-line" ng-repeat="room in model.chatRooms">
+                    <ng-include src="'views/comm/chat.list.view.client.html'" flex/>
+                </md-list-item>
+            </md-content>
+        </md-sidenav>
+
+        <!--Main Page-->
+        <md-content ng-controller="MessageController as model" class="green" flex md-whiteframe="2">
+            <ng-include src="'views/comm/message.view.client.html'" flex/>
+        </md-content>
+    </div>
+</div>
+
+<!-- Body Ends-->

@@ -1,0 +1,57 @@
+<md-toolbar class="md-hue-2 md-toolbar-tools" md-whiteframe="10">
+    <h1>Web Messenger</h1>
+    <span flex></span>
+    <md-button md-theme="registerTheme" class="md-raised md-primary" aria-label="Register">
+        <a href="#/register">Register</a>
+        <md-tooltip class="" md-direction="left">
+            Register
+        </md-tooltip>
+    </md-button>
+</md-toolbar>
+
+<div class="container" layout="row" flex="100" layout-fill>
+    <md-content bg-img={{model.bgUrl}} flex md-whiteframe="2" layout-padding>
+        <div class="rt-page-padding" layout="column" layout-padding>
+            <form md-theme="lightForm" name="loginForm" ng-submit="model.login(model.username, model.password)"
+                  layout="column">
+                <md-input-container>
+                    <label>User Name</label>
+                    <input required
+                           name="username"
+                           type="text"
+                           ng-model="model.username"
+                           autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                           flex/>
+                    <div ng-messages="loginForm.username.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="rt-form-text">
+                    <label>Password</label>
+                    <input required
+                           name="password"
+                           type="password"
+                           ng-model="model.password"
+                           autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                           flex/>
+                    <div ng-messages="loginForm.password.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+                <md-button flex md-theme="loginTheme" type="submit" class="md-primary md-raised" aria-label="Login">
+                    Login
+                </md-button>
+                <md-button ng-href="/rest/auth/google" flex md-theme="" class="md-warn md-raised hue-2"
+                           aria-label="Google">
+                    <span class="fa fa-google-plus"></span>
+                    Google
+                </md-button>
+            </form>
+            <!--<md-button ng-href="/rest/auth/facebook" flex md-theme="buttonTheme" class="md-warn md-raised hue-2"-->
+            <!--aria-label="Facebook">-->
+            <!--<span class="fa fa-facebook"></span>-->
+            <!--Facebook-->
+            <!--</md-button>-->
+        </div>
+    </md-content>
+</div>

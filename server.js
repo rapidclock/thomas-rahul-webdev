@@ -20,12 +20,26 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', function(req, res){
-    res.redirect('/assignment/index.html')
+    res.redirect('/index.html')
 });
 
 app.use(express.static(__dirname + '/public'));
 
-require("./assignment/app")(app);
+var mongoose = require('mongoose');
+var connectionString = 'mongodb://localhost:27017/wms';
+
+if (process.env.MLAB_WM_ASGN_DB_USERNAME) {
+    connectionString = process.env.MLAB_WM_DB_URL_INIT +
+        process.env.MLAB_WM_ASGN_DB_USERNAME + ":" +
+        process.env.MLAB_WM_ASGN_DB_PASSWORD +
+        process.env.MLAB_WM_ASGN_DB_URL_END + '/' +
+        process.env.MLAB_WM_ASGN_DB_NAME;
+}
+mongoose.connect(connectionString);
+
+
+require("./assignment/app")(app, mongoose);
+require("./project/app")(app, mongoose);
 // require ("./test/app.js")(app);
 
 app.set('ipaddress', (process.env.IP));

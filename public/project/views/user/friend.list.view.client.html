@@ -1,0 +1,45 @@
+<md-toolbar class="md-hue-2 md-toolbar-tools" md-whiteframe="10">
+    <h1>{{model.user.username}}'s Friends</h1>
+    <span flex></span>
+    <md-button md-theme="buttonTheme" class="md-raised md-warn md-hue-2" aria-label="Profile">
+        <a href="#/user/{{model.user._id}}">Profile</a>
+        <md-tooltip class="" md-direction="bottom">
+            Profile
+        </md-tooltip>
+    </md-button>
+    <md-button md-theme="buttonTheme" class="md-raised md-accent md-hue-2" aria-label="Chat">
+        <a href="#/user/{{model.user._id}}/chat">Chat</a>
+        <md-tooltip class="" md-direction="bottom">
+            Chat
+        </md-tooltip>
+    </md-button>
+    <md-button md-theme="buttonTheme" class="md-raised md-primary" aria-label="Logout">
+        <a ng-click="model.logout()">Logout</a>
+        <md-tooltip class="" md-direction="bottom">
+            Logout
+        </md-tooltip>
+    </md-button>
+</md-toolbar>
+
+<!-- Body Begins-->
+
+<div class="container" layout="row" flex="100" layout-fill>
+    <md-content flex md-whiteframe="2" layout-padding>
+        <div>
+            <ng-include src="'views/user/friend/find.friend.view.client.html'"/>
+        </div>
+        <div>
+            <md-list>
+                <md-subheader class="md-no-sticky">Friends List</md-subheader>
+                <div layout="column">
+                    <md-list-item class="md-3-line" ng-repeat="friend in model.friendsList"
+                                  layout="row" flex>
+                        <ng-include src="'views/user/friend/friend.card.view.client.html'" flex/>
+                    </md-list-item>
+                </div>
+            </md-list>
+        </div>
+    </md-content>
+</div>
+
+<!-- Body Ends-->

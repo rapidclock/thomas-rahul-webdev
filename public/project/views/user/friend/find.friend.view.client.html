@@ -1,0 +1,24 @@
+<div layout="row">
+    <md-autocomplete md-selected-item="model.selectedItem"
+                     md-search-text="model.searchText"
+                     flex
+                     md-search-text-change="model.searchTextChange(model.searchText)"
+                     md-items="item in model.findFriends(model.searchText)"
+                     md-item-text="item.username"
+                     placeholder="Find a friend by username.">
+        <md-item-template>
+        <span md-highlight-text="model.searchText">
+            {{item.username}} - {{item.firstName}} {{item.lastName}}
+        </span>
+        </md-item-template>
+        <md-not-found>
+            No matches found.
+        </md-not-found>
+    </md-autocomplete>
+    <md-button flex="20" md-theme="buttonTheme" class="md-raised md-warn" aria-label="Add Friend">
+        <a ng-click="model.addFriend()">Add Friend</a>
+        <md-tooltip class="" md-direction="bottom">
+            Add Friend
+        </md-tooltip>
+    </md-button>
+</div>

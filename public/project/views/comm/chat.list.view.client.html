@@ -1,0 +1,10 @@
+<div layout="row">
+    <a ng-href="#/user/{{model.userId}}/chat/{{room._id}}" layout="row">
+        <img ng-src="{{room.userTo.profilePic}}?20" class="md-avatar"/>
+        <div class="md-list-item-text">
+            <h3>{{room.userTo.firstName}} {{room.userTo.lastName}}</h3>
+            <p>{{room.userTo.username}}</p>
+        </div>
+    </a>
+</div>
+<md-divider></md-divider>

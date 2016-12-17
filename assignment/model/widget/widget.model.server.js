@@ -1,6 +1,6 @@
 module.exports = function(mongoose, pageModel){
 	var widgetSchema = require('./widget.schema.server.js')(mongoose);
-	var widgetModel = mongoose.model('Widget', widgetSchema);
+	// var widgetModel = mongoose.model('Widget', widgetSchema);
 
 	var api = {
 		'createWidget' : createWidget,
@@ -8,11 +8,15 @@ module.exports = function(mongoose, pageModel){
 		'findWidgetById' : findWidgetById,
 		'updateWidget' : updateWidget,
 		'deleteWidget' : deleteWidget,
-		'reorderWidget' : reorderWidget
+		'reorderWidget' : reorderWidget,
+        setModel : setModel
 	};
 
 	return api;
 
+    function setModel(_model){
+        model = _model;
+    }
 	// Function Definition Section
 
 	function createWidget(pageId, widget){

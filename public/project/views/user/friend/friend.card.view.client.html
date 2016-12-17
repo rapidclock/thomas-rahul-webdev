@@ -1,0 +1,25 @@
+<md-card md-theme="cardTheme">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{friend.firstName}} {{friend.lastName}}</span>
+            <span class="md-subhead">{{friend.username}}</span>
+            <span class="md-subhead">{{friend.caption}}</span>
+        </md-card-title-text>
+        <md-card-title-media>
+            <div class="md-media-sm card-media">
+                <img ng-src="{{friend.profilePic}}" class="md-avatar"/>
+            </div>
+        </md-card-title-media>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button href="#/user/{{model.user._id}}/ext/{{friend._id}}"
+                   md-theme="dorTheme" class="md-raised md-accent md-hue-2" aria-label="View Profile">
+            View Profile
+        </md-button>
+        <md-button ng-click="model.deFriend(friend._id)"
+                   md-theme="dorTheme" class="rt-button-gap md-raised md-warn" aria-label="View Profile">
+            Unfriend
+        </md-button>
+    </md-card-actions>
+</md-card>
+<md-divider></md-divider>
