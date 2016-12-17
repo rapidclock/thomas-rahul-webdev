@@ -97,13 +97,13 @@
                            aria-label="Update" ng-disabled="profileForm.$invalid">
                     Update Details
                 </md-button>
+                <md-button ng-click="model.setGeoLocation()" class="md-accent md-raised md-hue-2" aria-label="Get Location">
+                    Get Geo-Location
+                </md-button>
+                <md-button class="md-warn md-raised md-hue-2" aria-label="De-Register">
+                    <a ng-click="model.confirmDeregister($event)">De-Register</a>
+                </md-button>
             </form>
-            <md-button ng-click="model.setGeoLocation()" class="md-accent md-raised md-hue-2" aria-label="Get Location">
-                Get Geo-Location
-            </md-button>
-            <md-button class="md-warn md-raised md-hue-2" aria-label="De-Register">
-                <a ng-click="model.confirmDeregister($event)">De-Register</a>
-            </md-button>
             <div id="map" class="rt-gmaps"></div>
         </div>
     </md-content>
